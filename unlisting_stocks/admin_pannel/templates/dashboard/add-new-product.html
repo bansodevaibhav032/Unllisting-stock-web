@@ -1,0 +1,237 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %} {% block title %}Add New Company {% endblock %}
+{% block body %}
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/dashboard/company">Companies</a></li>
+                        <li class="breadcrumb-item active">Add New Product</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Add New Company</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/dashboard/add-company/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <h4><i class="mdi mdi-office-building"></i> Basic Details</h4>
+                            <hr>
+                            <div class="col-xl-12 row"> 
+                                <div class="mb-3 col-12">
+                                    <label for="projectname" class="form-label">Company Name : <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" id="projectname" name="companyName" class="form-control"
+                                        placeholder="Compnay Name" required>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <label for="projectname" class="form-label">Tageline/ Slogen : <span
+                                            class="text-danger"></span></label>
+                                    <input type="text" id="projectname" name="tageline" class="form-control"
+                                        placeholder="Compnay tagline" >
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <label for="example-select" class="form-label">Select Seller : <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="example-select" name="seller">
+                                        {% for i in seller %}
+                                        <option value="{{i.sellerId}}">{{i.sellerId}} -  {{i.first_name}} {{i.last_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <label for="example-select" class="form-label">Industry : <span
+                                            class="text-danger">*</span></label>
+                                            <input type="text"  name="industry" class="form-control"
+                                            placeholder="Industry" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="project-overview" class="form-label">Business/ Company Overview : <span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="project-overview" rows="5"
+                                        placeholder="Company overview" name="overview"
+                                        required></textarea>
+                                </div>
+
+                                <div class="mb-3 col-3">
+                                    <label for="project-budget" class="form-label">Avialable Stocks : <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number"  name="total_available_share" class="form-control"
+                                        placeholder="eg. 70" required>
+                                </div>
+                                <div class="mb-3 col-3">
+                                    <label for="project-budget" class="form-label">Lot Size : <span
+                                        class="text-danger">*</span></label>
+                                    <input type="number" id="project-budget" name="lotSize" class="form-control"
+                                        placeholder="eg. 20">
+                                </div>
+                                <div class="mb-3 col-3">
+                                    <label for="project-budget" class="form-label">Share Price : <span
+                                        class="text-danger">*</span></label>
+                                    <input type="number" id="project-budget" name="sharePrice" class="form-control"
+                                        placeholder="eg. 20">
+                                </div>
+                                <div class="mb-3 col-3">
+                                    <label for="project-budget" class="form-label">Face Value : <span
+                                        class="text-danger">*</span></label>
+                                    <input type="number" id="project-budget" name="faceValue" class="form-control"
+                                        placeholder="eg. 20">
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <label for="project-budget" class="form-label">CIN : <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" id="project-budget" name="cin" class="form-control"
+                                        placeholder="Enter CIN number" required>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <label for="project-budget" class="form-label">Company PAN  : <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" id="project-budget" name="pan" class="form-control"
+                                        placeholder="Company PAN number" required>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <label for="project-budget" class="form-label">Company TAN  : <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" id="project-budget" name="tan" class="form-control"
+                                        placeholder="Company TAN number" required>
+                                </div>
+
+
+                            </div> <!-- end col-->
+                            <h4 class="" style="padding-top: 40px;"><i class="mdi mdi-camera-burst"></i> Files
+                            </h4>
+                            <hr>
+                            <div class="col-xl-12 row">
+
+                                <div class="mb-3 mt-3 mt-xl-0 col-6">
+                                    <label for="projectname" class="mb-0">Company Logo</label>
+                                    <p class="text-muted font-14">Recommended logo size 512x512 (px).</p>
+
+                                    <div class="dropzone" id="myAwesomeDropzone1" data-plugin="dropzone"
+                                        data-previews-container="#file-previews"
+                                        data-upload-preview-template="#uploadPreviewTemplate1">
+                                        <div class="fallback">
+                                            <input name="logo" type="file" />
+                                        </div>
+
+                                        <div class="dz-message needsclick">
+                                            <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                            <h4>Drop files here or click to upload.</h4>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                    <!-- file preview template -->
+                                    <div class="d-none" id="uploadPreviewTemplate1">
+                                        <div class="card mt-1 mb-0 shadow-none border">
+                                            <div class="p-2">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <img data-dz-thumbnail src="#"
+                                                            class="avatar-sm rounded bg-light" alt="">
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                            data-dz-name></a>
+                                                        <p class="mb-0" data-dz-size></p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="#" class="btn btn-link btn-lg text-muted"
+                                                            data-dz-remove>
+                                                            <i class="dripicons-cross"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end file preview template -->
+                                </div>
+
+                                <div class="mb-3 mt-3 mt-xl-0 col-6">
+                                    <label for="projectname" class="mb-0">Report File</label>
+                                    <p class="text-muted font-14">File Type must be PDF</p>
+
+                                    <div class="dropzone" id="myAwesomeDropzone2" data-plugin="dropzone"
+                                        data-previews-container="#file-previews"
+                                        data-upload-preview-template="#uploadPreviewTemplate2">
+                                        <div class="fallback">
+                                            <input name="report_pdf" type="file" />
+                                        </div>
+
+                                        <div class="dz-message needsclick">
+                                            <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                            <h4>Drop files here or click to upload.</h4>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                    <!-- file preview template -->
+                                    <div class="d-none" id="uploadPreviewTemplate2">
+                                        <div class="card mt-1 mb-0 shadow-none border">
+                                            <div class="p-2">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <img data-dz-thumbnail src="#"
+                                                            class="avatar-sm rounded bg-light" alt="">
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                            data-dz-name></a>
+                                                        <p class="mb-0" data-dz-size></p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="#" class="btn btn-link btn-lg text-muted"
+                                                            data-dz-remove>
+                                                            <i class="dripicons-cross"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end file preview template -->
+                                </div>
+
+                                <!-- Date View -->
+                                <div class="mb-3 position-relative" id="datepicker2">
+                                    <button class="btn btn-success " type="submit">Save & Add</button>
+                                    <button class="btn btn-warning mx-2" type="reset">Reset</button>
+                                    <a href="/dashboard/products" class="btn btn-danger" type="button">Cancel</a>
+                                </div>
+                            </div> <!-- end col-->
+                        </div>
+                        <!-- end row -->
+                    </form>
+                </div> <!-- end card-body -->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row-->
+
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+
+{% endblock %}

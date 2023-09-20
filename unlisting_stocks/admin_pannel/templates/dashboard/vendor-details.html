@@ -1,0 +1,424 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+
+{% block title %} Vendor details | Electro Museum {% endblock %}
+
+{% block body %}
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/dashboard/vendors">Vendors</a></li>
+                        <li class="breadcrumb-item active">Vendor Profile</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Vendor Profile</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    {% for i in vendor %}
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Profile -->
+            <div class="card bg-primary">
+                <div class="card-body profile-user-box">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="avatar-lg">
+                                        <img src="/media/{{i.logo}}" alt="" class="rounded-circle img-thumbnail">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <h4 class="mt-1 mb-1 text-white">{{i.storeName}}</h4>
+                                        <p class="font-13 text-white-50"> {{i.user.first_name}} {{i.user.last_name}} -
+                                            Authorised Seller</p>
+
+                                        <ul class="mb-0 list-inline text-light">
+                                            <li class="list-inline-item me-3">
+                                                <h5 class="mb-1">Rs .00</h5>
+                                                <p class="mb-0 font-13 text-white-50">Total Revenue</p>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <h5 class="mb-1">{{i.productsCount}}</h5>
+                                                <p class="mb-0 font-13 text-white-50">Number of products</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end col-->
+
+                        <div class="col-sm-4">
+                            <div class="text-center mt-sm-0 mt-3 text-sm-end">
+                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#full-width-modal">
+                                    <i class="mdi mdi-account-edit me-1"></i> Edit Profile
+                                </button>
+                            </div>
+                        </div> <!-- end col-->
+                    </div> <!-- end row -->
+
+                </div> <!-- end card-body/ profile-user-box-->
+            </div>
+            <!--end profile/ card -->
+        </div> <!-- end col-->
+    </div>
+    {% endfor %}
+    <!-- end row -->
+
+
+    <div class="row">
+        {% for i in vendor %}
+        <div class="col-xl-4">
+            <!-- Personal-Information -->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mt-0 mb-3">Vendor Overview</h4>
+                    <p class="text-muted font-13">
+                        {{i.overview}}
+                    </p>
+
+                    <hr />
+
+                    <div class="text-start">
+                        <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">{{i.user.first_name}}
+                                {{i.user.last_name}}</span></p>
+
+                        <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">(+91) {{i.contact}}</span></p>
+
+                        <p class="text-muted"><strong>Email :</strong> <span class="ms-2">{{i.user.email}}</span></p>
+                        <p class="text-muted"><strong>GSTIN :</strong> <span class="ms-2">{{i.GSTIN}}</span></p>
+
+                        <p class="text-muted"><strong>Location :</strong> <span class="ms-2">{{i.address_line_1}},
+                                {{i.address_line_2}}, {{i.landmark}}, {{i.city}}, {{i.pincode}} , {{i.state}} -
+                                India.</span></p>
+
+                        <p class="text-muted mb-0" id="tooltip-container"><strong>Social presence :</strong>
+                            <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container"
+                                data-bs-placement="top" data-bs-toggle="tooltip" href="{{i.fbLink}}" title="Facebook"><i
+                                    class="mdi mdi-facebook"></i></a>
+                            <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container"
+                                data-bs-placement="top" data-bs-toggle="tooltip" href="{{i.instaLink}}"
+                                title="Twitter"><i class="mdi mdi-instagram"></i></a>
+                            <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container"
+                                data-bs-placement="top" data-bs-toggle="tooltip" href="{{i.twitterLink}}"
+                                title="Skype"><i class="mdi mdi-twitter"></i></a>
+                            <a class="d-inline-block ms-2 text-muted" data-bs-container="#tooltip-container"
+                                data-bs-placement="top" data-bs-toggle="tooltip" href="{{i.linkedInLink}}"
+                                title="Skype"><i class="mdi mdi-linkedin"></i></a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Personal-Information -->
+
+            <!-- Toll free number box-->
+            <div class="card text-white bg-info overflow-hidden">
+                <div class="card-body">
+                    <div class="toll-free-box text-center">
+                        <h4> <i class="mdi mdi-deskphone"></i> Phone : +91 {{i.contact}}</h4>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+            <!-- End Toll free number box-->
+
+            <!-- Messages-->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Financial Details</h4>
+                    <hr>
+                    <p class="text-muted"><strong>Bank Name :</strong><span class="ms-2">{{i.bankName}}</span></p>
+                    <p class="text-muted"><strong>Account Number :</strong><span class="ms-2">{{i.accountNumber}}</span>
+                    </p>
+                    <p class="text-muted"><strong>IFSC Code :</strong><span class="ms-2">{{i.ifscCode}}</span></p>
+                    <p class="text-muted"><strong>Account Name :</strong><span class="ms-2">{{i.accountName}}</span></p>
+                    <p class="text-muted"><strong>Wallet Balance :</strong><span class="ms-2">Rs.
+                            {{i.walletBalance}}</span></p>
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+
+        </div> <!-- end col-->
+        {% endfor %}
+
+        <div class="col-xl-8">
+            {% for i in vendor %}
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card tilebox-one">
+                        <div class="card-body">
+                            <i class="dripicons-basket float-end text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Orders</h6>
+                            <h2 class="m-b-20">0</h2>
+                            <!-- <span class="badge bg-primary"> +11% </span> <span class="text-muted">From previous period</span> -->
+                        </div> <!-- end card-body-->
+                    </div>
+                    <!--end card-->
+                </div><!-- end col -->
+
+                <div class="col-sm-4">
+                    <div class="card tilebox-one">
+                        <div class="card-body">
+                            <i class="dripicons-box float-end text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Revenue</h6>
+                            <h2 class="m-b-20">Rs. <span>00</span></h2>
+                            <!-- <span class="badge bg-danger"> -29% </span> <span class="text-muted">From previous period</span> -->
+                        </div> <!-- end card-body-->
+                    </div>
+                    <!--end card-->
+                </div><!-- end col -->
+
+                <div class="col-sm-4">
+                    <div class="card tilebox-one">
+                        <div class="card-body">
+                            <i class="dripicons-jewel float-end text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Total Product</h6>
+                            <h2 class="m-b-20">{{i.productsCount}}</h2>
+                            <!-- <span class="badge bg-primary"> +89% </span> <span class="text-muted">Last year</span> -->
+                        </div> <!-- end card-body-->
+                    </div>
+                    <!--end card-->
+                </div><!-- end col -->
+
+            </div>
+            <!-- end row -->
+            {% endfor %}
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">My Products</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in product %}
+                                <tr>
+                                    <td>{{i.productName}}</td>
+                                    <td><del>Rs. {{i.unitPrice}}</del> Rs. {{i.discountAmt}} / {{i.unit}}</td>
+                                    <td><span class="badge bg-primary">{{i.qty}} /{{i.unit}}</span></td>
+                                    <td>{{i.subCategory.cName}}</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div> <!-- end table responsive-->
+                </div> <!-- end col-->
+            </div> <!-- end row-->
+
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+
+</div> <!-- container -->
+
+
+<!-- modals  -->
+
+<!-- Full width modal -->
+<!-- <button  type="button" class="btn btn-primary" >Full width Modal</button> -->
+<div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="fullWidthModalLabel">Update Vendor Details</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body container">
+                {% for i in vendor %}
+                <form action="/dashboard/edit-vendor/{{i.id}}/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <h4><i class="mdi mdi-account-group"></i> Besic Details</h4>
+                        <hr>
+                        <div class="col-xl-12 row">
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">First Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="firstName" value="{{i.user.first_name}}" class="form-control"
+                                    placeholder="first name" required>
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Last Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="lastName" value="{{i.user.last_name}}" class="form-control"
+                                    placeholder="last name" required>
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Phone : <span
+                                        class="text-danger">*</span></label>
+                                <input type="tel" id="projectname" name="contact" value="{{i.contact}}" class="form-control" placeholder=""
+                                    required>
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Email Address : <span
+                                        class="text-danger">*</span></label>
+                                <input type="email" id="projectname" name="email" value="{{i.user.email}}" class="form-control"
+                                    placeholder="product name" required disabled>
+                            </div>
+
+                            <h4><i class="mdi mdi-google-my-business"></i> Store Details</h4>
+                            <hr>
+                            <div class="mb-3 col-12">
+                                <label for="projectname" class="form-label">Store Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="storeName" value="{{i.storeName}}" class="form-control"
+                                    placeholder="store name" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Address Line 1 : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="address_line_1" value="{{i.address_line_1}}" class="form-control"
+                                    placeholder="address line 1" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Address Line 2 : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="address_line_2" value="{{i.address_line_2}}" class="form-control"
+                                    placeholder="address line 2 " required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">City : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="city" value="{{i.city}}" class="form-control" placeholder="city"
+                                    required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Landmark : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="landmark" value="{{i.landmark}}" class="form-control"
+                                    placeholder="landmark" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Pincode : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="pincode" value="{{i.pincode}}" class="form-control"
+                                    placeholder="eg. 415164" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">State : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="state" value="{{i.state}}"
+                                    class="form-control" placeholder="state" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Country : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="country" class="form-control"
+                                    placeholder="Country" value="India" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">GSTIN : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="GSTIN" value="{{i.GSTIN}}" class="form-control"
+                                    placeholder="GST number" required>
+                            </div>
+
+
+
+                            <div class="mb-3">
+                                <label for="project-overview" class="form-label">Overview: <span
+                                        class="text-danger">*</span></label>
+                                <textarea class="form-control" id="project-overview" rows="5"
+                                    placeholder="Enter brief info about business or store" name="overview"
+                                    required>{{i.overview}}</textarea>
+                            </div>
+
+                            <h4><i class="uil-rss"></i> Social Media Account Link</h4>
+                            <hr>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Facebook<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="fbLink" value="{{i.fbLink}}" class="form-control"
+                                    placeholder="facebook page or account link" >
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Instagram<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="instaLink" value="{{i.instaLink}}" class="form-control"
+                                    placeholder="instagram account link">
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">LinkedIn<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="linkedInLink" value="{{i.linkedInLink}}" class="form-control"
+                                    placeholder="linkedIn account link" >
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Twitter<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="twitterLink" value="{{i.twitterLink}}" class="form-control"
+                                    placeholder="twitter account link" >
+                            </div>
+
+                            <h4><i class="mdi mdi-bank"></i> Bank Account Details</h4>
+                            <hr>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Bank Name<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="bankName" value="{{i.bankName}}" class="form-control"
+                                    placeholder="bank name" >
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Account Number<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="accountNumber" value="{{i.accountNumber}}" class="form-control"
+                                    placeholder="account number" >
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">IFSC Code<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="ifscCode" value="{{i.ifscCode}}" class="form-control"
+                                    placeholder="ifsc code" >
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Account Name<span
+                                        class="text-danger"></span></label>
+                                <input type="text" id="projectname" name="accountName" value="{{i.accountName}}" class="form-control"
+                                    placeholder="account name" >
+                            </div>
+                            <div class="mb-3 col-3">
+                                <button class="btn btn-success" type="submit">Save & Update</button> &nbsp;
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+
+                        </div> <!-- end col-->
+                        
+                    </div>
+                    <!-- end row -->
+                </form>
+                {% endfor %}
+            </div>
+            
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div> <!-- content -->
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

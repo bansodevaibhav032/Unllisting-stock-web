@@ -1,0 +1,128 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %}Unit Master | Krushiworld {% endblock %}
+{% block body %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">E-Commerce</a></li>
+                        <li class="breadcrumb-item active">Unit Master</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Unit Management</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h4 class="page-title mx-2 my-2">Unit List</h4>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <form action="/dashboard/add-new-unit/" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-xl-12 row">
+                                        <div class="mb-3 col-8">
+                                            <label for="example-select" class="form-label">Unit Name :
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="name"  class="form-control" required>
+                                        </div>
+                                        
+                                        <div class="mb-3 mt-3 position-relative col-4" id="datepicker2">
+                                            <button class="btn btn-danger btn-sm " type="submit">Save & Add</button>
+                                        </div>
+            
+                                    </div> <!-- end col-->
+                                    <!-- end col-->
+                                </div>
+                                <!-- end row -->
+                            </form>    
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="table-responsive">
+                        <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>#ID</th>
+                                    <th>Unit Name</th>
+                                    <th style="">Action</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                {% for i in unit reversed %}
+                                <tr>
+                                    <td> #{{i.id}} </td>
+                                    <td> {{i.name}} </td>
+
+                                    <td>
+                                        <a class="action-icon" onclick="deleteUnit({{i.id}})"> <i
+                                                class="mdi mdi-delete"></i> </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div>
+
+
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    
+
+
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    function deleteUnit(id) {
+        del = confirm("Do you really want to delete Unit ?")
+        if (del == true) {
+            location.replace("/dashboard/delete-unit/" + id)
+        }
+    }
+
+    function statusActive(id, status) {
+    if (confirm("Do you realy want to make changes ?")) {
+    location.replace('/dashboard/active-category/'+id+'/'+status)
+  }
+  
+}
+
+</script>
+{% endblock %}

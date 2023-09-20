@@ -1,0 +1,142 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %} {% block title %}Companies {% endblock %}
+{% block body %}
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Overview</a></li>
+                        <li class="breadcrumb-item active">Companies</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Companies</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    {% if messages %}
+    <div class="alert alert-info" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="/dashboard/add-company" class="btn btn-danger mb-2"><i
+                                    class="mdi mdi-plus-circle me-2"></i> Add company</a>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                <a href="/dashboard/products" type="button" class="btn btn-primary mb-2 me-2"><i
+                                        class="mdi mdi-autorenew me-1"></i> </a>
+                                <button type="button" class="btn btn-light mb-2">Export</button>
+                            </div>
+                        </div>
+                        <!-- end col-->
+                    </div>
+
+                    <div class="table-responsive">
+                        <table id="selection-datatable" class="table dt-responsive nowrap w-100">
+                            <thead class="table-light">
+                                <tr>
+                                    
+                                    <th class="all">Name</th>
+                                    <th>Seller</th>
+                                    <th>Total Shares</th>
+                                    <th>Share Price</th>
+                                    <th>Face Value</th>
+                                    <th>Lot Size</th>
+                                    <th>Status</th>
+                                    <th style="width: 85px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in company %}
+                                <tr>
+                                    <td>
+                                        <img src="/media/{{i.logo}}" alt="contact-img" title="contact-img"
+                                            class="rounded me-3" height="48" />
+                                        <p class="m-0 d-inline-block align-middle font-16">
+                                            <a href="/dashboard/company-details/{{i.companyId}}"
+                                                class="text-body">{{i.sellerId.company_name}}</a>
+                                            <br />
+                                            <span class="text-secondery mdi mdi-storefront-outline"><small>
+                                                    {{i.industry}} </small></span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        {{i.sellerId.first_name}} {{i.sellerId.last_name}}
+                                    </td>
+
+                                    <td>
+                                        {{i.total_available_share}} Shares
+                                    </td>
+                                    <td>
+                                        Rs. {{i.price}}</i>
+                                    </td>
+                                    <td>
+                                        Rs. {{i.face_value}}</i>
+                                    </td>
+                                    <td>
+                                        {{i.lot_size}} Shares</i>
+                                    </td>
+                                    <td>
+                                        {% if i.status == 'Active' %}
+                                        <span class="badge bg-success">Active</span> {% else %}
+                                        <span class="badge bg-success">Inactive</span> {% endif %}
+                                    </td>
+
+                                    <td class="table-action">
+                                        <a href="/dashboard/company-details/{{i.companyId}}" class="action-icon"> <i
+                                                class="mdi mdi-eye"></i></a>
+                                        <a href="/dashboard/edit-product/{{i.companyId}}"> <i
+                                                class="mdi mdi-square-edit"></i></a>
+                                        <a href="javascript:void(0);" class="action-icon"
+                                            onclick="deleteProd({{i.companyId}})"> <i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end card-body-->
+            </div>
+            <!-- end card-->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- container -->
+
+<!-- content -->
+{% endblock %}
+{% block js %}
+
+<script>
+    function deleteProd(id) {
+        del = confirm("Do you really want to delete Product ?")
+        if (del == true) {
+            location.replace("/dashboard/company-delete/" + id)
+        }
+    }
+
+
+    
+</script>
+{% endblock %}

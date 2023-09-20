@@ -1,0 +1,1762 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %} Leads - View{% endblock %}
+{% block body %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    {% for i in lead %}
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">View Leads</a></li>
+                        <li class="breadcrumb-item active">#SBF00{{i.id}}</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">#SBF00{{i.id}}/ {{i.firstName}} {{i.lastName}}</h4>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class="dripicons-checkmark me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- end page title -->
+    {% for i in lead %}
+    <div class="row">
+        <div class="col-xl-4 col-lg-5">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="mb-0 mt-2">{{i.firstName}} {{i.lastName}}</h4>
+                    <p class="text-muted font-14">{{i.applicationDate}}</p>
+
+                    <!-- <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>
+                    <button type="button" class="btn btn-danger btn-sm mb-2">Message</button> -->
+
+                    <div class="text-start mt-3">
+                        <p class="text-muted mb-2 font-13"><strong>Loan Type :</strong> <span
+                                class="ms-2">{{i.loanType}}</span></p>
+
+                        <p class="text-muted mb-2 font-13"><strong>Loan Amount :</strong><span class="ms-2">Rs.
+                                {{i.loanAmount}}</span></p>
+                        <p class="text-muted mb-2 font-13"><strong>Phone :</strong><span class="ms-2">+91
+                                {{i.phone}}</span></p>
+                        <p class="text-muted mb-2 font-13"><strong>Annual Income :</strong><span class="ms-2">Rs.
+                                {{i.annualIncome}}</span></p>
+                        <p class="text-muted mb-2 font-13"><strong>Gender :</strong><span
+                                class="ms-2">{{i.gender}}</span></p>
+                        <p class="text-muted mb-2 font-13"><strong>Marital status :</strong><span
+                                class="ms-2">{{i.maretialStatus}}</span></p>
+                        <p class="text-muted mb-2 font-13"><strong>DOB :</strong><span class="ms-2">{{i.dob}}</span></p>
+                        <p class="text-muted mb-2 font-13"><strong>Appl Type :</strong><span
+                                class="ms-2">{{i.applicantType}}</span></p>
+
+                        {% if i.status == 'new' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                                class="ms-2 badge badge-primary-lighten"><i class="mdi mdi-coin"></i>New Lead</span>
+                        </p>
+                        {% elif i.status == 'followup' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-warning-lighten"><i class="mdi mdi-coin"></i>Under followup</span>
+                        </p>
+                        {% elif i.status == 'login' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-warning-lighten"><i class="mdi mdi-coin"></i>Bank Login</span>
+                        </p>
+                        {% elif i.status == 'soft-approval' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-info-lighten"><i class="mdi mdi-coin"></i>Soft Approval</span>
+                        </p>
+                        {% elif i.status == 'approval' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-success-lighten"><i class="mdi mdi-coin"></i>Approved</span>
+                        </p>
+                        {% elif i.status == 'sanction' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-success-lighten"><i class="mdi mdi-coin"></i>Sanctioned</span>
+                        </p>
+                        {% elif i.status == 'disbursed' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-success-lighten"><i class="mdi mdi-coin"></i>Disbursed</span>
+                        </p>
+                        {% elif i.status == 'canceled' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-danger-lighten"><i class="mdi mdi-coin"></i>Canceled</span>
+                        </p>
+                        {% elif i.status == 'rejected' %}
+                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                            class="ms-2 badge badge-danger-lighten"><i class="mdi mdi-coin"></i>Rejected</span>
+                        </p>
+
+                        {% endif %}
+
+
+                        <p class="text-muted mb-2 font-13"><strong>Email :</strong><span class="ms-2">{{i.email}}</span>
+                        </p>
+                        <p class="text-muted mb-2 font-13"><strong>City :</strong><span class="ms-2">{{i.city}}</span>
+                        </p>
+                        <p class="text-muted mb-2 font-13"><strong>Loan Purpose :</strong><span
+                                class="ms-2">{{i.loanPurpose}}</span></p>
+
+                    </div>
+
+                    {% if i.status == 'new' %}
+                    <ul class="social-list list-inline mt-3 mb-0">
+                        <li class="list-inline-item my-2 mx-2">
+                            <!-- href="/dashboard/approve-leads/{{i.id}}" -->
+                            <button data-bs-toggle="modal" data-bs-target="#approvalBtn" class="btn btn-outline-success btn-rounded btn-sm"><i
+                                    class="mdi mdi-bank-check"></i> Approve</button>
+                        </li>
+                        <li class="list-inline-item my-2 mx-2">
+                            <a href="/dashboard/reject-leads/{{i.id}}/" class="btn btn-outline-danger btn-rounded btn-sm"><i
+                                class="mdi mdi-bank-off"></i> Reject</a>
+
+                            </li>
+                        <li class="list-inline-item my-2 mx-2">
+                            <a href="/dashboard/cancel-leads/{{i.id}}/" class="btn btn-outline-danger btn-rounded btn-sm"><i
+                                class="mdi mdi-account-question"></i> Cancel</a>
+                        </li>
+                    </ul>
+                    {% elif i.status == 'approval' %}
+                    <ul class="social-list list-inline mt-3 mb-0">
+                        <li class="list-inline-item my-2 mx-2">
+                            <!--  -->
+                            <a href="/dashboard/disburse-leads/{{i.id}}/" class="btn btn-outline-success btn-rounded btn-sm"><i
+                                    class="mdi mdi-bank-check"></i> Disburse</a>
+                        </li>
+                        <li class="list-inline-item my-2 mx-2">
+                            <a href="/dashboard/reject-leads/{{i.id}}/" class="btn btn-outline-danger btn-rounded btn-sm"><i
+                                class="mdi mdi-bank-off"></i> Reject</a>
+
+                            </li>
+                        <li class="list-inline-item my-2 mx-2">
+                            <a href="/dashboard/cancel-leads/{{i.id}}/" class="btn btn-outline-danger btn-rounded btn-sm"><i
+                                class="mdi mdi-account-question"></i> Cancel</a>
+                        </li>
+
+                    </ul>
+                    {% endif %}
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+
+
+        </div> <!-- end col-->
+
+
+        <div class="col-xl-8 col-lg-7">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                        <li class="nav-item">
+                            <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                Besic Details
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#timeline" data-bs-toggle="tab" aria-expanded="true"
+                                class="nav-link rounded-0 active">
+                                Employement Details
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                References
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="aboutme">
+                            <!-- Besic Details Start Here -->
+                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle me-1"></i>
+                                Personal
+                                Info </h5>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="mb-2">
+                                        <p class="text-muted mb-2 font-13"><strong>Application Date :</strong><span
+                                                class="ms-2">{{i.applicationDate}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <button type="button" class="btn btn-info me-2 btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#personal-info-modal"><i class=" uil-pen"></i>
+                                        </button>
+                                        <!-- <i class="uil-pen " style="width: 100px;"> Edit</i> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>First Name :</strong><span
+                                                class="ms-2">{{i.firstName}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Last Name :</strong><span
+                                                class="ms-2">{{i.lastName}}</span></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Middel Name :</strong><span
+                                                class="ms-2">{{i.middelName}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Father Name :</strong><span
+                                                class="ms-2">{{i.fatherName}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Mother Name :</strong><span
+                                                class="ms-2">{{i.motherName}}</span></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Phone Number :</strong><span
+                                                class="ms-2">{{i.phone}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Email Address :</strong><span
+                                                class="ms-2">{{i.email}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Loan Type :</strong><span
+                                                class="ms-2">{{i.loanType}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Loan Amount :</strong><span
+                                                class="ms-2">Rs. {{i.loanAmount}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Months :</strong><span
+                                                class="ms-2">{{i.months}} Months</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Mother Name :</strong><span
+                                                class="ms-2">{{i.motherName}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Annual Income :</strong><span
+                                                class="ms-2">{{i.annualIncome}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Gender :</strong><span
+                                                class="ms-2">{{i.gender}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Maretial Status :</strong><span
+                                                class="ms-2">{{i.maretialStatus}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Date Of Birth :</strong><span
+                                                class="ms-2">{{i.dob}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>PAN Number :</strong><span
+                                                class="ms-2">{{i.panNumber}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Total Dependents :</strong><span
+                                                class="ms-2">{{i.no_of_depends}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Qualification :</strong><span
+                                                class="ms-2">{{i.qualification}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>City :</strong><span
+                                                class="ms-2">{{i.city}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Applicant Type :</strong><span
+                                                class="ms-2">{{i.applicantType}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Loan Purpose :</strong><span
+                                                class="ms-2">{{i.loanPurpose}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Running Loan EMI :</strong><span
+                                                class="ms-2">{{i.runningLoanEmi}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Credit Card :</strong><span
+                                                class="ms-2">{{i.creditCard}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Status :</strong><span
+                                                class="ms-2">{{i.status}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Remaks :</strong><span
+                                                class="ms-2">{{i.remark}}</span></p>
+                                    </div>
+                                </div>
+
+                                <h5 class="mb-3 text-uppercase bg-light p-2"><i
+                                        class="mdi mdi-office-building me-1"></i>
+                                    Current Residential Address</h5>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Address Line 1 :</strong><span
+                                                    class="ms-2">{{i.currentAddressLine1}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="mb-2">
+                                            <button type="button" class="btn btn-info me-2 btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#current-address-modal"><i
+                                                    class=" uil-pen"></i>
+                                            </button>
+                                            <!-- <i class="uil-pen " style="width: 100px;"> Edit</i> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Address Line 2 :</strong><span
+                                                    class="ms-2">{{i.currentAddressLine2}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>City :</strong><span
+                                                    class="ms-2">{{i.currentCity}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Landmark :</strong><span
+                                                    class="ms-2">{{i.currentLandmark}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Pincode :</strong><span
+                                                    class="ms-2">{{i.currentPincode}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>State :</strong><span
+                                                    class="ms-2">{{i.currentState}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Ownership :</strong><span
+                                                    class="ms-2">{{i.currentAddresOwnership}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Rent(If Rented) :</strong><span
+                                                    class="ms-2">Rs. {{i.currentAddresRent}}</span></p>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row -->
+
+                                <h5 class="mb-3 text-uppercase bg-light p-2"><i
+                                        class="mdi mdi-office-building me-1"></i>
+                                    permanent Residential Address</h5>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Address Line 1 :</strong><span
+                                                    class="ms-2">{{i.permanentAddressLine1}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="mb-2">
+                                            <button type="button" class="btn btn-info me-2 btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#permanent-address-modal"><i
+                                                    class=" uil-pen"></i>
+                                            </button>
+                                            <!-- <i class="uil-pen " style="width: 100px;"> Edit</i> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Address Line 2 :</strong><span
+                                                    class="ms-2">{{i.permanentAddressLine2}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>City :</strong><span
+                                                    class="ms-2">{{i.permanentCity}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Landmark :</strong><span
+                                                    class="ms-2">{{i.permanentLandmark}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Pincode :</strong><span
+                                                    class="ms-2">{{i.permanentPincode}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>State :</strong><span
+                                                    class="ms-2">{{i.permanentState}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Ownership :</strong><span
+                                                    class="ms-2">{{i.permanentAddresOwnership}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Rent(If Rented) :</strong><span
+                                                    class="ms-2">Rs. {{i.permanentAddresRent}}</span></p>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row -->
+
+                            </div> <!-- end tab-pane -->
+                            <!-- end about me section content -->
+                        </div>
+                        <div class="tab-pane show active" id="timeline">
+
+
+                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-briefcase me-1"></i>
+                                Company Information</h5>
+                            {% if i.employementType == 'salaried' %}
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Organization Name :</strong><span
+                                                class="ms-2">{{i.organizationName}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+
+                                        <button type="button" class="btn btn-info me-2 btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#conpany-info-salaried-address-modal"><i
+                                                class=" uil-pen"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Employement Type :</strong><span
+                                                class="ms-2">{{i.employementType}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Date Of Joining :</strong><span
+                                                class="ms-2">{{i.doj}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Salary :</strong><span
+                                                class="ms-2">{{i.salary}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Designation :</strong><span
+                                                class="ms-2">{{i.designation}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Department :</strong><span
+                                                class="ms-2">{{i.department}}</span></p>
+                                    </div>
+                                </div>
+                            </div> <!-- end row -->
+                            {% else %}
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Company/ First/ Shop/ Name
+                                                :</strong><span class="ms-2">{{i.firmName}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <button type="button" class="btn btn-info me-2 btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#conpany-info-business-address-modal"><i
+                                                class=" uil-pen"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Type :</strong><span
+                                                class="ms-2">{{i.firmType}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Establishment Date :</strong><span
+                                                class="ms-2">{{i.establishmentDate}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Annual Turnover :</strong><span
+                                                class="ms-2">{{i.annualTurnover}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Business Type :</strong><span
+                                                class="ms-2">{{i.businessType}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Total Years in Industry
+                                                :</strong><span class="ms-2">{{i.yearInIndustry}} Years</span></p>
+                                    </div>
+                                </div>
+
+                            </div> <!-- end row -->
+                            {% endif %}
+                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-domain me-1"></i>
+                                Office Address</h5>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Address Line 1 :</strong><span
+                                                class="ms-2">{{i.companyAddressLine1}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <div class="mb-2">
+                                            <!-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#bs-example-modal-lg">Large Modal</button> -->
+                                            <button type="button" class="btn btn-info me-2 btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#office-address-modal"><i
+                                                    class=" uil-pen"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Address Line 2 :</strong><span
+                                                class="ms-2">{{i.companyAddressLine2}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>City :</strong><span
+                                                class="ms-2">{{i.companyCity}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Landmark :</strong><span
+                                                class="ms-2">{{i.companyLandmark}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Pincode :</strong><span
+                                                class="ms-2">{{i.companyPincode}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>State :</strong><span
+                                                class="ms-2">{{i.companyState}}</span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <!-- end timeline content-->
+
+                        <div class="tab-pane" id="settings">
+                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle me-1"></i>
+                                Reference 1</h5>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Full Name :</strong><span
+                                                class="ms-2">{{i.ref1Name}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <button type="button" class="btn btn-info me-2 btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#reference1-modal"><i class=" uil-pen"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Phone Number :</strong><span
+                                                class="ms-2">{{i.ref1Phone}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Email Address :</strong><span
+                                                class="ms-2">{{i.ref1Email}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Address :</strong><span
+                                                class="ms-2">{{i.ref1Address}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>City :</strong><span
+                                                class="ms-2">{{i.ref1City}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-2 font-13"><strong>Relation :</strong><span
+                                                class="ms-2">{{i.ref1Relation}}</span></p>
+                                    </div>
+                                </div>
+
+                            </div> <!-- end row -->
+
+
+                            <div class="tab-pane" id="settings">
+                                <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle me-1"></i>
+                                    Reference 2</h5>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Full Name :</strong><span
+                                                    class="ms-2">{{i.ref2Name}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="mb-2">
+                                            <button type="button" class="btn btn-info me-2 btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#reference2-modal"><i
+                                                    class=" uil-pen"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Phone Number :</strong><span
+                                                    class="ms-2">{{i.ref2Phone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Email Address :</strong><span
+                                                    class="ms-2">{{i.ref2Email}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Address :</strong><span
+                                                    class="ms-2">{{i.ref2Address}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>City :</strong><span
+                                                    class="ms-2">{{i.ref2City}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <p class="text-muted mb-2 font-13"><strong>Relation :</strong><span
+                                                    class="ms-2">{{i.ref2Relation}}</span></p>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- end row -->
+
+
+
+                            </div>
+                            <!-- end settings content-->
+
+                        </div> <!-- end tab-content -->
+                    </div> <!-- end card body -->
+                </div> <!-- end card -->
+            </div> <!-- end col -->
+        </div>
+        {% endfor %}
+        <!-- end row-->
+
+    </div>
+    <!-- container -->
+
+</div>
+<!-- content -->
+
+<!-- Modals Here  -->
+
+<!-- Approval Modal  -->
+{% for i in lead %}
+<!-- Large modal -->
+<!-- <button type="button" class="btn btn-info" >Large Modal</button> -->
+<div class="modal fade" id="approvalBtn" tabindex="-1" role="dialog" aria-labelledby="approvalBtnModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="approvalBtnModal">Loan Approved</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-bank-check me-1"></i> Approval</h4>
+
+                    <hr>
+                    <form action="/dashboard/approve-leads/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="bankName" class="form-control"
+                                        id="floatingInput" placeholder="Bank Name"
+                                        value="" required />
+                                    <label for="floatingInput">Approved Bank Name <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="approvalAmount" class="form-control"
+                                        id="floatingInput" placeholder="Approval Amount" required
+                                         />
+                                    <label for="floatingInput">Approved Amount <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="date"  class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">Date <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="tenure" 
+                                        class="form-control" id="floatingInput" placeholder="tenure"
+                                        required />
+                                    <label for="floatingInput">Tenure <small>(Months)</small> <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="roi"
+                                        class="form-control" id="floatingInput" placeholder="roi" />
+                                    <label for="floatingInput">Rate of Interest <small>( % )</small> <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="emi"
+                                        class="form-control" id="floatingInput" placeholder="roi" />
+                                    <label for="floatingInput">EMI <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="interestAmount"
+                                        class="form-control" id="floatingInput" required />
+                                    <label for="floatingInput">Interest Amount <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+{% for i in lead %}
+<!-- Office Address Modal -->
+<div id="office-address-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="officeAddressModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="officeAddressModal"><i
+                        class="mdi mdi-office-building me-1"></i> Office Address</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Office Address</h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/office-address/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyAddressLine1" class="form-control"
+                                        id="floatingInput" placeholder="Enter First Name"
+                                        value="{{i.companyAddressLine1}}" required />
+                                    <label for="floatingInput">Address Line 1 <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyAddressLine2" class="form-control"
+                                        id="floatingInput" placeholder="middel name"
+                                        value="{{i.companyAddressLine2}}" />
+                                    <label for="floatingInput">Address Line 2</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyCity" value="{{i.companyCity}}" class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">City <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyLandmark" value="{{i.companyLandmark}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com"
+                                        required />
+                                    <label for="floatingInput">Landmark <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyPincode" value="{{i.companyPincode}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Pincode</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyState" value="{{i.companyState}}"
+                                        class="form-control" id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">State <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+{% for i in lead %}
+<!-- Reference 1 Modal -->
+<div id="reference1-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reference1Modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="reference1Modal"><i class="mdi mdi-office-building me-1"></i>
+                    References Details</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Reference 1 Details</h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/reference1/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="ref1Name" class="form-control" id="floatingInput"
+                                        placeholder="Enter First Name" value="{{i.ref1Name}}" required />
+                                    <label for="floatingInput">Full Name <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" name="ref1Phone" value="{{i.ref1Phone}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Phone Number <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="email name=" ref1Email" value="{{i.ref1Email}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Email Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="ref1Address" class="form-control" id="floatingInput"
+                                        placeholder="middel name" value="{{i.ref1Address}}" required />
+                                    <label for="floatingInput">Complete Address <span
+                                            class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="ref1City" value="{{i.ref1City}}" class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">City <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="ref1Relation">
+                                        <option value="{{i.ref1Relation}}" selected>{{i.ref1Relation}}</option>
+                                        <option value="Father">Father</option>
+                                        <option value="Mother">Mother</option>
+                                        <option value="Friends">Friends</option>
+                                        <option value="Relative">Relative</option>
+                                        <option value="Brother">Brother</option>
+                                        <option value="Spouse">Spouse</option>
+                                        <option value="Office colleagues">Office colleagues</option>
+                                    </select>
+                                    <label for="floatingSelect">Relation</label>
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+{% for i in lead %}
+<!-- Reference 2 Modal -->
+<div id="reference2-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reference2Modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="reference2Modal"><i class="mdi mdi-office-building me-1"></i>
+                    References Details</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Reference 2 Details</h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/reference2/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="ref2Name" class="form-control" id="floatingInput"
+                                        placeholder="Enter First Name" value="{{i.ref2Name}}" required />
+                                    <label for="floatingInput">Full Name <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" name="ref2Phone" value="{{i.ref2Phone}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Phone Number <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="email" name="ref2Email" value="{{i.ref2Email}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Email Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="ref2Address" class="form-control" id="floatingInput"
+                                        placeholder="middel name" value="{{i.ref2Address}}" required />
+                                    <label for="floatingInput">Complete Address <span
+                                            class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="ref2City" value="{{i.ref2City}}" class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">City <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="ref2Relation">
+                                        <option value="{{i.ref2Relation}}" selected>{{i.ref2Relation}}</option>
+                                        <option value="Father">Father</option>
+                                        <option value="Mother">Mother</option>
+                                        <option value="Friends">Friends</option>
+                                        <option value="Relative">Relative</option>
+                                        <option value="Brother">Brother</option>
+                                        <option value="Spouse">Spouse</option>
+                                        <option value="Office colleagues">Office colleagues</option>
+                                    </select>
+                                    <label for="floatingSelect">Relation</label>
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+{% for i in lead %}
+<!-- Personal Info modal -->
+<!-- <button  type="button" class="btn btn-primary" >Full width Modal</button> -->
+<div id="personal-info-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="personalInfoModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="personalInfoModal"><i
+                        class="mdi mdi-account-circle me-1"></i> Personal Info</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-account-circle me-1"></i> Personal Info</h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/personal-info/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="firstName" class="form-control" id="floatingInput"
+                                        placeholder="Enter First Name" value="{{i.firstName}}" required />
+                                    <label for="floatingInput">First Name <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="middelName" class="form-control" id="floatingInput"
+                                        placeholder="middel name" value="{{i.middelName}}" />
+                                    <label for="floatingInput">Middel Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="lastName" value="{{i.lastName}}" class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">Last Name <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="fatherName" value="{{i.fatherName}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Father Name <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="motherName" value="{{i.motherName}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Mother Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" name="phone" value="{{i.phone}}" class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">Phone Number <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="email" name="email" value="{{i.email}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Email Address <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="loanType">
+                                        <option value="{{i.loanType}}" selected>{{i.loanType}}</option>
+                                        <option value="personal-loan">Personal Loan</option>
+                                        <option value="business-loan">Business Loan</option>
+                                        <option value="home-loan">Home Loan</option>
+                                        <option value="mortgage-loan">Mortgage Loan</option>
+                                        <option value="vehicle-loan">Vehicle Loan</option>
+                                        <option value="education-loan">Education Loan</option>
+                                        <option value="micro-loan">Micro Loan</option>
+                                    </select>
+                                    <label for="floatingSelect">Loan Type</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="loanAmount" value="{{i.loanAmount}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Loan Amount <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="months" value="{{i.months}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Months</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="annualIncome" value="{{i.annualIncome}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Annual Income</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="gender">
+                                        <option value="{{i.gender}}" selected>{{i.gender}}</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <label for="floatingSelect">Gender</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="maretialStatus">
+                                        <option value="{{i.maretialStatus}}" selected>{{i.maretialStatus}}</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Unmarried">Unmarried</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Widow">Widow</option>
+                                    </select>
+                                    <label for="floatingSelect">Maretial Status</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="dob" value="{{i.dob}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Date Of Birth</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="panNumber" value="{{i.panNumber}}" class="form-control"
+                                        id="floatingInput" placeholder="eg. DGFY1234G" required />
+                                    <label for="floatingInput">PAN Number <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="no_of_depends" value="{{i.no_of_depends}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Total Dependents</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="qualification" value="{{i.qualification}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Qualification</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="city" value="{{i.city}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">City <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="applicantType">
+                                        <option value="{{i.applicantType}}" selected>{{i.applicantType}}</option>
+                                        <option value="individual">Individual</option>
+                                        <option value="Joint">Joint</option>
+                                    </select>
+                                    <label for="floatingSelect">Applicant Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="runningLoanEmi" value="{{i.runningLoanEmi}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Running Loan EMI</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="creditCard" value="{{i.creditCard}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Credit card</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 my-2">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="loanPurpose" value="{{i.loanPurpose}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Loan Purpose <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+{% for i in lead %}
+<!-- Current Residential Info modal -->
+<div id="current-address-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="currentAddressModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="currentAddressModal"><i
+                        class="mdi mdi-office-building me-1"></i> Current Address</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Cuurent Residential Address
+                    </h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/current-residense-address/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="currentAddressLine1" class="form-control"
+                                        id="floatingInput" placeholder="Enter First Name"
+                                        value="{{i.currentAddressLine1}}" required />
+                                    <label for="floatingInput">Address Line 1 <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="currentAddressLine2" class="form-control"
+                                        id="floatingInput" placeholder="middel name"
+                                        value="{{i.currentAddressLine2}}" />
+                                    <label for="floatingInput">Address Line 2</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="currentCity" value="{{i.currentCity}}" class="form-control"
+                                        id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">City <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="currentLandmark" value="{{i.currentLandmark}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com"
+                                        required />
+                                    <label for="floatingInput">Landmark <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="currentPincode" value="{{i.currentPincode}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Pincode</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="currentState" value="{{i.currentState}}"
+                                        class="form-control" id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">State <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="currentAddresOwnership">
+                                        <option value="{{i.currentAddresOwnership}}" selected>
+                                            {{i.currentAddresOwnership}}</option>
+                                        <option value="Rented">Rented</option>
+                                        <option value="Own">Own</option>
+                                    </select>
+                                    <label for="floatingSelect">Property Type</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="currentAddresRent" value="{{i.currentAddresRent}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Monthly Rent <small>(if available)</small> </label>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+{% for i in lead %}
+<!-- Permanent Residential Info modal -->
+<div id="permanent-address-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="permanentAddressModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="permanentAddressModal"><i
+                        class="mdi mdi-office-building me-1"></i> Permanent Address</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Permanent Residential Address
+                    </h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/permanent-residense-address/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="permanentAddressLine1" class="form-control"
+                                        id="floatingInput" placeholder="Enter First Name"
+                                        value="{{i.permanentAddressLine1}}" required />
+                                    <label for="floatingInput">Address Line 1 <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="permanentAddressLine2" class="form-control"
+                                        id="floatingInput" placeholder="middel name"
+                                        value="{{i.permanentAddressLine2}}" />
+                                    <label for="floatingInput">Address Line 2</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="permanentCity" value="{{i.permanentCity}}"
+                                        class="form-control" id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">City <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="permanentLandmark" value="{{i.permanentLandmark}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com"
+                                        required />
+                                    <label for="floatingInput">Landmark <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="permanentPincode" value="{{i.permanentPincode}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Pincode</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="permanentState" value="{{i.permanentState}}"
+                                        class="form-control" id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">State <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="permanentAddresOwnership">
+                                        <option value="{{i.permanentAddresOwnership}}" selected>
+                                            {{i.permanentAddresOwnership}}</option>
+                                        <option value="Rented">Rented</option>
+                                        <option value="Own">Own</option>
+                                    </select>
+                                    <label for="floatingSelect">Property Type</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="permanentAddresRent" value="{{i.permanentAddresRent}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Monthly Rent <small>(if available)</small> </label>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+{% for i in lead %}
+<!-- Company information for salaried Info modal -->
+<div id="conpany-info-salaried-address-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="companyInfoSalariedModal" aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="companyInfoSalariedModal"><i
+                        class="mdi mdi-office-building me-1"></i> Company Information</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Company Details</h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/company-details/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="organizationName" class="form-control" id="floatingInput"
+                                        placeholder="Enter First Name" value="{{i.organizationName}}" required />
+                                    <label for="floatingInput">Organization Name <span
+                                            class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="employementType">
+                                        <option value="{{i.employementType}}" selected>{{i.employementType}}</option>
+                                        <option value="salaried">Salaried</option>
+                                        <option value="self - employeed">Self Employeed</option>
+                                        <option value="professional">Professional</option>
+                                    </select>
+                                    <label for="floatingSelect">Employement Type</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="doj" value="{{i.doj}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Date of Joining <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="salary" value="{{i.salary}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" required />
+                                    <label for="floatingInput">Net Salary <span class="text-danger">*</span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="designation" value="{{i.designation}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Designation <span class="text-danger"></span> </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="department" value="{{i.department}}" class="form-control"
+                                        id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">Department <span class="text-danger"></span> </label>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+
+
+{% for i in lead %}
+<!-- Company information for Business Info modal -->
+<div id="conpany-info-business-address-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="companyInfoBusinessModal" aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title text-uppercase" id="companyInfoBusinessModal"><i
+                        class="mdi mdi-office-building me-1"></i> Business Information</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="modal-title"><i class="mdi mdi-office-building me-1"></i> Business Details</h4>
+
+                    <hr>
+                    <form action="/dashboard/edit-leads/business-details/{{i.id}}/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="employementType">
+                                        <option value="{{i.employementType}}" selected>{{i.employementType}}</option>
+                                        <option value="salaried">Salaried</option>
+                                        <option value="self-employeed">Self Employeed</option>
+                                        <option value="professional ">Professional</option>
+                                    </select>
+                                    <label for="floatingSelect">Employement Type</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="firmName" class="form-control" id="floatingInput"
+                                        placeholder="Enter First Name" value="{{i.firmName}}" required />
+                                    <label for="floatingInput">Business Name <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" name="firmType">
+                                        <option value="{{i.firmType}}" selected>{{i.firmType}}</option>
+                                        <option value="Private Limited">Private Limited</option>
+                                        <option value="Public Limited">Public Limited</option>
+                                        <option value="Partnership">Partnership</option>
+                                        <option value="One Person Company">One Person Company</option>
+                                        <option value="Sole Proprietorship">Sole Proprietorship</option>
+                                        <option value="Limited Liability Partnership">Limited Liability Partnership
+                                        </option>
+                                        <option value="Section 8 Company">Section 8 Company</option>
+                                    </select>
+                                    <label for="floatingSelect">Firm Type</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="establishmentDate" class="form-control" id="floatingInput"
+                                        placeholder="middel name" value="{{i.establishmentDate}}" />
+                                    <label for="floatingInput">Establishment Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="annualTurnover" value="{{i.annualTurnover}}"
+                                        class="form-control" id="floatingInput" placeholder="" required />
+                                    <label for="floatingInput">Annual Turnover <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="businessType" value="{{i.businessType}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com"
+                                        required />
+                                    <label for="floatingInput">Business Nature <span
+                                            class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="yearInIndustry" value="{{i.yearInIndustry}}"
+                                        class="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label for="floatingInput">No of Years in Industry</label>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i>
+                                    Save</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %}Customer Detaiils | Krushiworld {% endblock %}
+{% block body %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/dashboard/customers">Customers</a></li>
+                        <li class="breadcrumb-item active">Customer Profile</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Customer Profile</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Profile -->
+            <div class="card bg-primary">
+                <div class="card-body profile-user-box">
+                    
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="avatar-lg">
+                                        <img src="{% static 'dashboard/assets/images/users/userAvtar.jpg' %}" alt=""
+                                            class="rounded-circle img-thumbnail">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <h4 class="mt-1 mb-1 text-white">{{customer.user.first_name}} {{customer.user.last_name}}</h4>
+                                        <p class="font-13 text-white-50"> {{customer.user.email}}</p>
+
+                                        <ul class="mb-0 list-inline text-light">
+                                            <li class="list-inline-item me-3">
+                                                <h5 class="mb-1">Rs. {{totalRevenue}}</h5>
+                                                <p class="mb-0 font-13 text-white-50">Total Revenue</p>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <h5 class="mb-1">{{totalOrder}}</h5>
+                                                <p class="mb-0 font-13 text-white-50">Number of Orders</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end col-->
+
+                        <div class="col-sm-4">
+                            <div class="text-center mt-sm-0 mt-3 text-sm-end">
+
+                                <div class="btn btn-light">
+                                    {% if customer.block == 'no' %}
+                                    <h4 class="mt-1 mb-1">Cash on delivery</h4>
+                                    <input type="checkbox" id="block" checked data-switch="bool"
+                                        onclick="block({{customer.id}})" value="no" />
+                                    <label for="block" data-on-label="On" data-off-label="Off"></label>
+
+                                    {% else %}
+                                    <h4 class="mt-1 mb-1">Cash on delivery</h4>
+                                    <input type="checkbox" id="block" data-switch="bool"
+                                        onclick="block({{customer.id}})" value="yes" />
+                                    <label for="block" data-on-label="On" data-off-label="Off"></label>
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div> <!-- end col-->
+                    </div> <!-- end row -->
+                    
+                </div> <!-- end card-body/ profile-user-box-->
+            </div>
+            <!--end profile/ card -->
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Personal-Information -->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mt-0 mb-3">Customer Information</h4>
+
+                    <hr />
+
+                    <div class="text-start">
+                        <p class="text-muted"><strong>Full Name :</strong> <span class="ms-2">{{customer.user.first_name}} {{customer.user.last_name}}</span>
+                        </p>
+
+                        <p class="text-muted"><strong>Mobile :</strong><span class="ms-2">(+91) {{customer.contact}}</span></p>
+
+                        <p class="text-muted"><strong>Email :</strong> <span class="ms-2"><i class="mdi mdi-email"></i> {{customer.user.email}}</span>
+                        </p>
+
+                        <label for="">Addresses</label>
+                        {% for i in address %}
+                        <p class="text-muted"><strong>{{forloop.counter}}. Address : {{i.addressType}}  </strong> <br>
+                            <span class="ms-2"> {{i.address_line_1}},<br>
+                                {{i.address_line_2}}, <br>
+                            {{i.landmark}}, {{i.city}}- {{i.pincode}}, {{i.state}}-India </span>
+                        </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- Personal-Information -->
+
+            <!-- Toll free number box-->
+            <div class="card text-white bg-info overflow-hidden">
+                <div class="card-body">
+                    <div class="toll-free-box text-center">
+                        <h4> <i class="mdi mdi-phone"></i> Call : <a href="tel:{{customer.contact}}" class="fw-bold text-light">(+91) {{customer.contact}} </a></h4>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+            <!-- End Toll free number box-->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mt-0 mb-3">Authentication Information</h4>
+
+                    <hr />
+
+                    <div class="text-start">
+                        <p class="text-muted"><strong>Username :</strong> <span class="ms-2">{{customer.user.username}}</span>
+                        </p>
+
+                        <p class="text-muted"><strong>Last Login :</strong><span class="ms-2">{{customer.user.last_login}}</span></p>
+
+                        <p class="text-muted"><strong>Email :</strong> <span class="ms-2"><i class="mdi mdi-email"></i> {{customer.user.email}}</span>
+                        </p>
+
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div> <!-- end col-->
+
+        <div class="col-xl-8">
+
+            <!-- Chart-->
+        
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card tilebox-one">
+                        <div class="card-body">
+                            <i class="dripicons-basket float-end text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Orders</h6>
+                            <h2 class="m-b-20">{{totalOrder}}</h2>
+                            <span class="badge bg-primary"> +1 % </span> <span class="text-muted">From previous
+                                month</span>
+                        </div> <!-- end card-body-->
+                    </div>
+                    <!--end card-->
+                </div><!-- end col -->
+
+                <div class="col-sm">
+                    <div class="card tilebox-one">
+                        <div class="card-body">
+                            <i class="dripicons-box float-end text-muted"></i>
+                            <h6 class="text-muted text-uppercase mt-0">Revenue</h6>
+                            <h2 class="m-b-20">Rs. <span>{{totalRevenue}}</span></h2>
+                            <span class="badge bg-primary"> +1 % </span> <span class="text-muted">From previous
+                                month</span>
+                        </div> <!-- end card-body-->
+                    </div>
+                    <!--end card-->
+                </div><!-- end col -->
+
+                
+            </div>
+            <!-- end row -->
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Total Orders</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th >Order Id</th>
+                                    <th>Date</th>
+                                    <th>Payment Status</th>
+                                    <th>Total</th>
+                                    <th>Order Status</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in orders reversed %}
+                                <tr>
+                                    <td><a href="/dashboard/order-details/{{i.id}}" class="text-body fw-bold">#KW00{{i.id}}</a> </td>
+                                    <td>{{i.order_date|slice:":16"}}</td>
+                                    {% if i.paymentStatus == 'Paid' %}
+                                    <td><h5><span class="badge badge-success-lighten"><i class="mdi mdi-check"></i> Paid</span></h5></td>
+                                    {% else %}
+                                    <td><h5><span class="badge badge-danger-lighten"><i class="mdi mdi-timer-sand"></i>{{i.paymentStatus}}</span></h5></td>
+                                    {% endif %}
+                                    <td>Rs. {{i.total}}</td>
+                                    {% if i.status == 'Order Placed' %}
+                                    <td><h5><span class="badge badge-primary-lighten"><i class="mdi mdi-coin"></i>{{i.status}}</span></h5></td>
+                                    {% elif i.status == 'Packed' %}
+                                    <td><h5><span class="badge badge-info-lighten"><i class="mdi mdi-coin"></i>{{i.status}}</span></h5></td>
+                                    {% elif i.status == 'Shipped' %}
+                                    <td><h5><span class="badge badge-warning-lighten"><i class="mdi mdi-coin"></i>{{i.status}}</span></h5></td>
+                                    {% elif i.status == 'Delivered' %}
+                                    <td><h5><span class="badge badge-success-lighten"><i class="mdi mdi-coin"></i>{{i.status}}</span></h5></td>
+                                    {% else %}
+                                    <td><h5><span class="badge badge-danger-lighten"><i class="mdi mdi-coin"></i>{{i.status}}</span></h5></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div> <!-- end table responsive-->
+                </div> <!-- end col-->
+            </div> <!-- end row-->
+
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+    
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+{% endblock %}
+
+{% block js %}
+<script>
+    function block(id) {
+        result = document.getElementById('block').value;
+        // alert("Changing status ")
+        location.replace('/dashboard/customer-block/'+result+'/'+id )
+    }
+</script>
+{% endblock %}

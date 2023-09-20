@@ -1,0 +1,400 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %} Order Details | Krushiworld {% endblock %}
+{% block body %}
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/dashboard/orders">Orders</a></li>
+                        <li class="breadcrumb-item active">Order Details</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Order Details</h4>
+            </div>
+        </div>
+    </div>
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong> 
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- end page title -->
+    {% for i in order %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-10 col-sm-11">
+
+            {% if i.status == 'Order Placed' %}
+            <div class="horizontal-steps mt-4 mb-4 pb-5" id="tooltip-container">
+                <div class="horizontal-steps-content">
+
+                    <div class="step-item current">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Order Placed</span>
+                    </div>
+                    <div class="step-item">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="21/08/2018 11:32 AM">Packed</span>
+                    </div>
+                    <div class="step-item">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Shipped</span>
+                    </div>
+                    <div class="step-item">
+                        <span>Delivered</span>
+                    </div>
+                </div>
+
+                <div class="process-line" style="width: 20%;"></div>
+            </div>
+
+            {% elif i.status == 'Packed' %}
+            <div class="horizontal-steps mt-4 mb-4 pb-5" id="tooltip-container">
+                <div class="horizontal-steps-content">
+
+                    <div class="step-item ">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Order Placed</span>
+                    </div>
+                    <div class="step-item current">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="21/08/2018 11:32 AM">Packed</span>
+                    </div>
+                    <div class="step-item">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Shipped</span>
+                    </div>
+                    <div class="step-item">
+                        <span>Delivered</span>
+                    </div>
+                </div>
+
+                <div class="process-line" style="width: 56%;"></div>
+            </div>
+            {% elif i.status == 'Shipped' %}
+            <div class="horizontal-steps mt-4 mb-4 pb-5" id="tooltip-container">
+                <div class="horizontal-steps-content">
+
+                    <div class="step-item ">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Order Placed</span>
+                    </div>
+                    <div class="step-item">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="21/08/2018 11:32 AM">Packed</span>
+                    </div>
+                    <div class="step-item current">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Shipped</span>
+                    </div>
+                    <div class="step-item">
+                        <span>Delivered</span>
+                    </div>
+                </div>
+
+                <div class="process-line" style="width: 80%;"></div>
+            </div>
+            {% elif i.status == 'Delivered' %}
+            <div class="horizontal-steps mt-4 mb-4 pb-5" id="tooltip-container">
+                <div class="horizontal-steps-content">
+
+                    <div class="step-item ">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Order Placed</span>
+                    </div>
+                    <div class="step-item ">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="21/08/2018 11:32 AM">Packed</span>
+                    </div>
+                    <div class="step-item ">
+                        <span data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="20/08/2018 07:24 PM">Shipped</span>
+                    </div>
+                    <div class="step-item current">
+                        <span>Delivered</span>
+                    </div>
+                </div>
+
+                <div class="process-line" style="width: 100%;"></div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- end row -->
+
+    <button class="btn btn-primary my-4 mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"><i class="mdi mdi-square-edit-outline"></i> Update Status</button>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Items from Order #KW00{{i.order_id}} </h4>
+                    <input name="items" id="items" cols="30" rows="10" value="{{i.product_list}}" hidden>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Disciount</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="">
+                                <!-- Item listing here  -->
+                                {% for i in order %}
+                                <tr>
+                                    <td> <img src="/media/{{i.product.thumbNail}}" alt="contact-img" title="contact-img" class="rounded me-3" height="48" /> {{i.product.productName}}</td>
+                                    <td>{{i.qnt}} {{i.product.unit}}</td>
+                                    <td>Rs. {{i.product.unitPrice}}</td>
+                                    <td>Rs. {{i.saving}}</td>
+                                    <td>Rs. {{i.total}}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end table-responsive -->
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+        
+    </div>
+    <!-- end row -->
+
+
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Shipping Information</h4>
+
+                    <a href="/dashboard/customer-details/{{i.customerUsername.username}}" class="text-body fw-bold">
+                        <h5>{{i.customerUsername.first_name}} {{i.customerUsername.last_name}}</h5>
+                    </a>
+                    {% for c in order %}
+                    <address class="mb-0 font-14 address-lg">
+                        {{c.address.address_line_1}}, {{c.address.address_line_2}},<br>
+                        {{c.address.landmark}}, {{c.address.city}} - {{c.address.pincode}}, {{c.address.state}}, India<br>
+                        <abbr title="Phone">Phone : +91 {{customer.contact}}</abbr> <br />
+                        <abbr title="Email">Mail : {{customer.user.email}}</abbr>
+
+
+                    </address>
+                    {% endfor %}
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Billing Information</h4>
+
+                    <ul class="list-unstyled mb-0">
+                        {% if i.payment_mode == 'cod' %}
+                        <li>
+                            <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span> {{i.payment_mode}}</p>
+                            {% if i.paymentStatus == 'Paid' %}
+                            <p class="mb-2"><span class="fw-bold me-2">Payment Status</span> <span
+                                    class="badge badge-success-lighten"> {{i.paymentStatus}}</span></p>
+                            {% else %}
+                            <p class="mb-2"><span class="fw-bold me-2">Payment Status</span> <span
+                                    class="badge badge-danger-lighten"> {{i.paymentStatus}}</span></p>
+                            {% endif %}
+
+
+                        </li>
+                        {% else %}
+                        <li>
+                            <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span> {{i.payment_mode}}</p>
+                            {% if i.paymentStatus == 'Paid' %}
+                            <p class="mb-2"><span class="fw-bold me-2">Payment Status</span> <span
+                                    class="badge badge-success-lighten"> {{i.paymentStatus}}</span></p>
+                            {% else %}
+                            <p class="mb-2"><span class="fw-bold me-2">Payment Status</span> <span
+                                    class="badge badge-danger-lighten"> {{i.paymentStatus}}</span></p>
+                            {% endif %}
+
+
+
+                            <p class="mb-2"><span class="fw-bold me-2"> Transication Id :</span>
+                                {{i.razorpay_payment_id}}</p>
+                            <p class="mb-2"><span class="fw-bold me-2"> Payment Id :</span>
+                                {{i.razorpay_order_id}}</p>
+                            <!-- <p class="mb-0"><span class="fw-bold me-2">CVV:</span> xxx</p> -->
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Delivery Info</h4>
+
+                    <div class="text-center">
+                        <i class="mdi mdi-truck-fast h2 text-muted"></i>
+                        <h5><b>{{i.deliverySchedule}}</b></h5>
+                        <p class="mb-1"><b>Order ID :</b> #KW00{{i.order_id}}</p>
+                        <p class="mb-0"><b>Order Date :</b> {{i.order_date|slice:":16"}}</p>
+                        <!-- <p class="mb-0"><b>Payment Mode :</b> {{i.payment_mode}}</p> -->
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+
+        <!-- Right Side Modal for updating form  -->
+        <div>
+            <!-- <button class="btn btn-primary" type="button" >Toggle right offcanvas</button> -->
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel">Update Order Status</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    
+                    <form action="/dashboard/update-order/{{i.id}}/" method="POST"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <h4><i class="mdi mdi-cart"></i> Order Details</h4>
+                            <hr>
+                            <div class="col-xl-12 row">
+                                <div class="mb-3 col-12">
+                                    <label for="example-select" class="form-label">Order Status :
+                                        <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="example-select" name="status">
+                                        <option value="{{i.status}}">{{i.status}}</option>
+                                        <option value="Packed">Packed</option>
+                                        <option value="Shipped">Shipped</option>
+                                        <option value="Delivered">Delivered</option>
+                                        <option value="Cancel">Cancel</option>
+                                        <option value="Rejected">Rejected</option>
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="mb-3 col-12">
+                                    <label for="example-select" class="form-label">Payment Status :
+                                        <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="example-select" name="paymentStatus">
+                                        <option value="{{i.paymentStatus}}">{{i.paymentStatus}}</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="project-overview" class="form-label">Remarks
+                                        : <span class="text-danger"></span></label>
+                                    <textarea class="form-control" id="project-overview" rows="5"
+                                        placeholder="Enter some brief about product.." name="remark"
+                                        ></textarea>
+                                </div>
+
+                                <div class="mb-3 position-relative" id="datepicker2">
+                                    <button class="btn btn-success " type="submit">Save & Add</button>
+                                </div>
+
+                            </div> <!-- end col-->
+                            <!-- end col-->
+                        </div>
+                        <!-- end row -->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- end row -->
+    {% endfor %}
+
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    n = document.getElementById('items').value;
+
+
+    var totalPrice = 0;
+    var totalPriceAfterDiscount = 0;
+    var totleItem = 0;
+    var totalSaving = 0;
+
+    cart = JSON.parse(n)
+
+    for (item in cart) {
+        let name = cart[item][2];
+        let price = cart[item][4];
+        let qnt = cart[item][0];
+        let image = cart[item][5];
+        let unit = cart[item][6];
+        let discountAmt = cart[item][7];
+        let id = cart[item][1];
+        let discount = cart[item][3];
+        let total = parseInt(price) * parseInt(qnt);
+        let afterDiscountTotal = parseInt(discountAmt) * parseInt(qnt);
+        totleItem = totleItem + parseInt(qnt);
+        totalPrice = totalPrice + total;
+        totalPriceAfterDiscount = totalPriceAfterDiscount + afterDiscountTotal;
+
+        totalSaving = totalPrice - totalPriceAfterDiscount
+
+
+
+        // console.log("Price is " + totalPrice);
+        mystr = ``;
+
+        $('#itemList').append(mystr);
+    }
+
+    billstr = `<tr>
+                                    <td>Grand Total :</td>
+                                    <td>Rs. ${totalPriceAfterDiscount}</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping Charge :</td>
+                                    <td>00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Estimated Tax : </td>
+                                    <td>00.00</td>
+                                </tr>
+                                <tr>
+                                    <th>Total :</th>
+                                    <th>Rs. ${totalPriceAfterDiscount}</th>
+                                </tr>`;
+
+    $('#billing').append(billstr);
+
+</script>
+{% endblock %}

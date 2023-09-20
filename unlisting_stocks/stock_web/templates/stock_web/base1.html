@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+{% load static %}
+<!-- Mirrored from themes.semicolonweb.com/html/canvas/index-corporate-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Nov 2021 10:46:51 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&amp;display=swap"
+		rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/css/bootstrap.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/style.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/css/swiper.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/css/dark.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/css/font-icons.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/css/animate.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'stock_web/css/magnific-popup.css' %}" type="text/css" />
+
+	<link rel="stylesheet" href="{% static 'stock_web/css/custom.css' %}" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Document Title
+	============================================= -->
+	<title>{% block title %}  {% endblock %}</title>
+
+</head>
+
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+			<div id="header-wrap">
+				<div class="container">
+					<div class="header-row">
+						<!-- Logo
+						============================================= -->
+						
+						<div id="logo">
+							<a href="{% url 'home' %}" class="standard-logo" data-dark-logo="images/logo-dark.png"><img
+									src="{% static 'stock_web/images/hrLogo.png' %}" alt="Canvas Logo"></a>
+						</div><!-- #logo end -->
+					
+
+						<div class="header-misc">
+
+						
+							<!-- Top Cart
+							============================================= -->
+							<div class="mb-1 mb-0 text-center">
+								<a href="{% url 'login' %}" class="btn btn-black" role="button" aria-pressed="true"><strong>Login</strong></a>
+							</div>
+						</div>
+
+						<div id="primary-menu-trigger">
+							<svg class="svg-trigger" viewBox="0 0 100 100">
+								<path
+									d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20">
+								</path>
+								<path d="m 30,50 h 40"></path>
+								<path
+									d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20">
+								</path>
+							</svg>
+						</div>
+
+						<!-- Primary Navigation
+						============================================= -->
+						<nav class="primary-menu">
+
+							<ul class="menu-container">
+								<li class="menu-item">
+									<a class="menu-link" href="{% url 'home' %}">
+										<div>HOME</div>
+									</a>
+								
+								</li>
+								<li class="menu-item">
+									<a class="menu-link" href="{% url 'about' %}">
+										<div>ABOUT US</div>
+									</a>
+									
+								</li>
+								<li class="menu-item">
+									<a class="menu-link" href="#"><div>BUY & SELL</div></a>
+									<ul class="sub-menu-container">
+										<li class="menu-item">
+											<a class="menu-link" href="{% url 'portfolio' %}"><div>INDIAN PRE IPO & UNLISTED STOCKS</div></a>
+										</li>
+										
+										<li class="menu-item">
+											<a class="menu-link" href="{% url 'registerSeller' %}"><div>SELLER</div></a>
+										</li>
+										<li class="menu-item">
+											<a class="menu-link" href="{% url 'registerBuyer' %}"><div>BUYER</div></a>
+										</li>
+									</ul>
+								</li>
+									
+								<li class="menu-item">
+									<a class="menu-link" href="#"><div>KNOWLEDGE CENTER</div></a>
+									<ul class="sub-menu-container">
+										<li class="menu-item">
+											<a class="menu-link" href="{% url 'portfolio' %}"><div>RESERACH REPORTS</div></a>
+										</li>
+										<li class="menu-item">
+											<a class="menu-link" href="{% url 'blog_web' %}"><div>BLOG</div></a>
+										</li>
+										<li class="menu-item">
+											<a class="menu-link" href="{% url 'faqs' %}"><div>FAQs</div></a>
+										</li>
+										
+									</ul>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link" href="{% url 'contact_us' %}"><div>Contact Us</div></a>
+								</li>
+															
+							</ul>
+
+						</nav><!-- #primary-menu end -->
+						{% block content %}
+
+
+						{% endblock %}
+
+						<!-- Footer
+		============================================= -->
+						<footer id="footer" class="dark">
+							<div class="container">
+
+								<!-- Footer Widgets
+				============================================= -->
+								
+								<div class="footer-widgets-wrap">
+
+									<div class="row col-mb-50">
+										<div class="col-lg-8">
+											
+											<div class="row col-mb-50">
+												<div class="col-md-4">
+													
+													<div class="widget clearfix">
+
+														<img src="{% static 'stock_web/images/hrLogo.png' %}"  class="h-25 d-inline-block" style="">
+
+														<p>We believe in <strong>Simple</strong>,
+															<strong>Creative</strong> &amp; <strong>Flexible</strong>
+															Design Standards.</p>
+
+														<div
+															style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
+															<address>
+																<strong>Headquarters:</strong><br>
+																{{about.address_line_1}}<br>
+																{{about.address_line_2}}<br>
+															</address>
+															
+															<abbr title="Phone Number"><strong>Mobile No.1:</strong></abbr>
+															(1){{about.contact_1}}<br>
+															<abbr title="Phone Number"><strong>Mobile No.2:</strong></abbr>
+															(1) {{about.contact_2}}<br>
+															
+															<abbr title="Email Address"><strong>Email:</strong></abbr>
+															{{about.email}}
+														</div>
+
+													</div>
+
+												</div>
+
+												<div class="col-md-4">
+
+													<div class="widget widget_links clearfix">
+
+														
+
+														<ul>
+															<li><a href="{% url 'home' %}">Home</a>
+															</li>
+															<li><a
+																	href="{% url 'about' %}">About</a>
+															</li>
+															<li><a
+																	href="{% url 'portfolio' %}">Indian Pre IPO & unlimited Stocks</a>
+															</li>
+															<li><a href="{% url 'registerBuyer' %}">Buyer</a></li>
+
+															<li><a href ="{% url 'registerSeller' %}">Seller</a></li>
+
+															<li><a href="{% url 'blog' %}"> Blog</a></li>
+															
+															<li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+														</ul>
+
+													</div>
+
+												</div>
+
+												<div class="col-md-4">
+
+													<div class="widget clearfix">
+														<h4>Recent Posts</h4>
+
+														<div class="posts-sm row col-mb-30" id="post-list-footer">
+															<div class="entry col-12">
+																<div class="grid-inner row">
+																	<div class="col">
+																		<div class="entry-title">
+																			<h4><a href="#">Lorem ipsum dolor sit amet,
+																					consectetur</a></h4>
+																		</div>
+																		<div class="entry-meta">
+																			<ul>
+																				<li>10th July 2021</li>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+															<div class="entry col-12">
+																<div class="grid-inner row">
+																	<div class="col">
+																		<div class="entry-title">
+																			<h4><a href="#">Elit Assumenda vel amet
+																					dolorum quasi</a></h4>
+																		</div>
+																		<div class="entry-meta">
+																			<ul>
+																				<li>10th July 2021</li>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+															<div class="entry col-12">
+																<div class="grid-inner row">
+																	<div class="col">
+																		<div class="entry-title">
+																			<h4><a href="#">Debitis nihil placeat, illum
+																					est nisi</a></h4>
+																		</div>
+																		<div class="entry-meta">
+																			<ul>
+																				<li>10th July 2021</li>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+
+										<div class="col-lg-4">
+
+											<div class="row col-mb-50">
+												<div class="col-md-4 col-lg-12">
+													<div class="widget clearfix" style="margin-bottom: -20px;">
+
+														<div class="row">
+															<div class="col-lg-6 bottommargin-sm">
+																<div class="counter counter-small"><span data-from="50"
+																		data-to="15065421" data-refresh-interval="80"
+																		data-speed="3000" data-comma="true"></span>
+																</div>
+																<h5 class="mb-0">Total company Downloads</h5>
+															</div>
+
+															<div class="col-lg-6 bottommargin-sm">
+																<div class="counter counter-small"><span data-from="100"
+																		data-to="18465" data-refresh-interval="50"
+																		data-speed="2000" data-comma="true"></span>
+																</div>
+																<h5 class="mb-0">Clients</h5>
+															</div>
+														</div>
+
+													</div>
+												</div>
+										
+											</div>
+
+										</div>
+									</div>
+
+								</div><!-- .footer-widgets-wrap end -->
+
+							</div>
+
+							<!-- Copyrights
+			============================================= -->
+							<div id="copyrights">
+								<div class="container">
+
+									<div class="row col-mb-30">
+
+										<div class="col-md-6 text-center text-md-start">
+											Copyrights &copy; 2021 All Rights Reserved by Client Name </br>
+														 Develop by Phenoware Pravate Ldt.<br>
+											<div class="copyright-links"><a href="{% url 'privacy_policy' %}">Terms of Use</a> / <a
+													href="{% url 'privacy_policy' %}">Privacy Policy</a></div>
+										</div>
+
+										<div class="col-md-6 text-center text-md-end">
+											<div class="d-flex justify-content-center justify-content-md-end">
+												<a href="{{about.facebook_account_link}}" class="social-icon si-small si-borderless si-facebook">
+													<i class="icon-facebook"></i>
+													<i class="icon-facebook"></i>
+												</a>
+				
+												<a href="{{about.twitter_account_link}}" class="social-icon si-small si-borderless si-twitter">
+													<i class="icon-twitter"></i>
+													<i class="icon-twitter"></i>
+												</a>
+																
+												<a href="{{about.instagram_link}}" class="social-icon si-small si-borderless si-instagram">
+													<i class="icon-instagram"></i>
+													<i class="icon-instagram"></i>
+												</a>
+				
+												<a href="{{about.linked_link}}" class="social-icon si-small si-borderless si-linkedin">
+													<i class="icon-linkedin"></i>
+													<i class="icon-linkedin"></i>
+												</a>
+											</div>
+
+									</div>
+
+								</div>
+							</div><!-- #copyrights end -->
+						</footer><!-- #footer end -->
+
+					</div><!-- #wrapper end -->
+
+					<!-- Go To Top
+	============================================= -->
+					<div id="gotoTop" class="icon-angle-up"></div>
+
+					<!-- JavaScripts
+	============================================= -->
+					<script src="{% static 'stock_web/js/jquery.js' %}"></script>
+					<script src="{% static 'stock_web/js/plugins.min.js' %}"></script>
+
+					<!-- Footer Scripts
+	============================================= -->
+					<script src="{% static 'stock_web/js/functions.js' %}"></script>
+
+</body>
+
+<!-- Mirrored from themes.semicolonweb.com/html/canvas/index-corporate-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Nov 2021 10:57:45 GMT -->
+
+</html>

@@ -1,0 +1,336 @@
+{% extends 'stock_web/layout.html' %}
+{% block title %} ShareApp | Homemmm{% endblock %}
+{% block content %}
+
+<section id="slider" class="slider-element slider-parallax swiper_wrapper vh-75">
+    <div class="slider-inner">
+
+        <div class="swiper-container swiper-parent">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide dark">
+                    <div class="container">
+                        <div class="slider-caption slider-caption-center">
+                            <h2 data-animate="fadeInUp">Welcome to <span style="color: orangered;">Shareapp</span></h2>
+                            <p class="d-none d-sm-block" style="color: black;" data-animate="fadeInUp" data-delay="200">
+                                India's trusted platform to invest or sell ulisted stock and share. </p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide-bg" style="background-image: url('/media/stocks_web/banner1.jpg');">
+                    </div>
+                </div>
+
+            </div>
+            <div class="">
+                <div class="slide-number-current"></div><span>/</span>
+                <div class="slide-number-total"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Content
+============================================= -->
+
+
+<div class="clearfix">
+
+    <div class=" py-4" style="color: white; background-color: rgb(216, 134, 12); display: flex; margin-left: 30px; margin-right: 30px;">
+
+        <div class="col-sm-6 col-lg-6 col-md-6" style="background-color: rgb(216, 134, 12); padding: 10px; margin: auto;">
+            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                <div class="fbox-icon">
+                    <a href="{% url 'login' %}"><i class="i-alt border-0 icon-shop"></i></a>
+                </div>
+                <div class="fbox-content">
+                    <h3 style="color:White;"> BE A SELLER <span class="subtitle"></span></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-6 col-md-6" style="background-color: rgb(216, 134, 12); padding: 10px;  margin: auto;">
+            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                <div class="fbox-icon">
+                    <a href="{% url 'registerBuyer' %}"><i class="i-alt border-0 icon-wallet"></i></a>
+                </div>
+                <div class="fbox-content">
+                    <h3 style="color:White;"> BE A BUYER <span class="subtitle"></span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" topmargin-lg">
+        <div class="container clearfix">
+
+            <div class="heading-block center">
+                <h2>Features</h2>
+                <span></span>
+            </div>
+
+            <div class="row justify-content-center col-mb-50" style="padding: 20px;">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="feature-box fbox-sm fbox-plain" data-animate="fadeIn">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-key"></i></a>
+                        </div>
+                        <div class="fbox-content">
+                            <h3>Access to Unlisted Stocks &amp; Funds</h3>
+                            <p>Investing in private companies vai Share-app from a wide range of sectors like
+                                Banking, Financial Services, Payments, E-Commerce, Technology, Manufacturing,
+                                Industrial, Real Estate, Insurance, Stock Exchanges etc. accross Indian Marketing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="feature-box fbox-sm fbox-plain" data-animate="fadeIn" data-delay="200">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-graph"></i></a>
+                        </div>
+                        <div class="fbox-content">
+                            <h3>Curated Investments</h3>
+                            <p>We provide proprietary analysis including recent price history, valuation &amp; cap
+                                tables. We only offer companies with proven track-records &amp; top-tier venture capital
+                                invested companies.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="feature-box fbox-sm fbox-plain" data-animate="fadeIn" data-delay="200">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-book"></i></a>
+                        </div>
+                        <div class="fbox-content">
+                            <h3>Guided Process</h3>
+                            <p>Our platform guides you through the complex process of buying &amp; selling of Unlisted
+                                Financial Products. Our Team is available to work with you to facilitate smooth
+                                transactions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <div class="feature-box fbox-sm fbox-plain" data-animate="fadeIn" data-delay="200">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="icon-rupee"></i></a>
+                        </div>
+                        <div class="fbox-content">
+                            <h3>Liquidity</h3>
+                            <p>We are recognized as market leaders in the Unlisted space, with access to over 6500+
+                                Distribution Partners &amp; 5+ Investors across Institutional, HNI &amp; Retail Category
+                                acroos Indian &amp; Global Markets. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section topmargin-sm mb-0">
+
+        <div class="container clearfix">
+
+            <div class="heading-block center">
+                <h3>Testimonials</h3>
+                <span>Check out some of our Client Reviews</span>
+            </div>
+            <ul class="testimonials-grid grid-1 grid-md-2 grid-lg-3">
+                {% for res in reviews_obj|slice:"6" %}
+                <li class="grid-item">
+                    <div class="testimonial">
+
+                        <div class="testi-content">
+                            <p>{{res.message}}</p>
+                            <div class="testi-meta">
+                                {{res.holder_name}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+        </div>
+
+    </div>
+
+    <div class=" clearfix mt-5 mb-3 text-center">
+        <div class="heading-block center">
+            <h2>Companies currently on our platform</h2>
+            <span></span>
+        </div>
+        <div class="" style="display: flex; flex-wrap: wrap; justify-content: center;">
+
+            {% for i in company %}
+            <div class="oc-item " style="margin: 15px;">
+                <div class="card" style="width: 15rem; height: 20rem; padding-top: 10px;">
+                    <img src="/media/{{i.logo}}" style="width: 150px; height: 150px; margin: auto;" class="card-img-top"
+                        alt="Compnay List">
+
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{i.company_name }}</h5>
+                        <p>{{i.industry }}</p>
+                    </div>
+                    <div style="background-color: chocolate; padding: 10px;">
+                        <a href="/company-details/{{i.companyId}}" style=" color: white;">Lear More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+    </div>
+
+
+</div>
+</section><!-- #content end -->
+
+<section id="content " class="section topmargin-sm" >
+    <div class="content-wrap">
+        <div class="heading-block center">
+            <h3>Send us an Email</h3>
+            <span>We are happy to help you</span>
+        </div>
+        <div class="container">
+
+            <div class="row gutter-40 col-mb-80">
+                <!-- Postcontent
+                ============================================= -->
+                <div class="postcontent col-lg-9">
+
+                    <h3></h3>
+
+                    <div class="form-widget">
+
+                        <div class="form-result"></div>
+
+                        <form class="mb-0" id="template-contactform" name="template-contactform" action="http://themes.semicolonweb.com/html/canvas/include/form.php" method="post">
+
+                            <div class="form-process">
+                                <div class="css3-spinner">
+                                    <div class="css3-spinner-scaler"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-name">Name <small>*</small></label>
+                                    <input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control required" />
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-email">Email <small>*</small></label>
+                                    <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-phone">Phone</label>
+                                    <input type="text" id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />
+                                </div>
+
+                                <div class="w-100"></div>
+
+                                <div class="col-md-8 form-group">
+                                    <label for="template-contactform-subject">Subject <small>*</small></label>
+                                    <input type="text" id="template-contactform-subject" name="subject" value="" class="required sm-form-control" />
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-service">Services</label>
+                                    <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
+                                        <option value="">-- Select One --</option>
+                                        <option value="Wordpress">Wordpress</option>
+                                        <option value="PHP / MySQL">PHP / MySQL</option>
+                                        <option value="HTML5 / CSS3">HTML5 / CSS3</option>
+                                        <option value="Graphic Design">Graphic Design</option>
+                                    </select>
+                                </div>
+
+                                <div class="w-100"></div>
+
+                                <div class="col-12 form-group">
+                                    <label for="template-contactform-message">Message <small>*</small></label>
+                                    <textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>
+                                </div>
+
+                                <div class="col-12 form-group d-none">
+                                    <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+                                </div>
+
+                                <div class="col-12 form-group">
+                                    <button class="button button-3d m-0" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Send Message</button>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="prefix" value="template-contactform-">
+
+                        </form>
+                    </div>
+
+                </div><!-- .postcontent end -->
+
+                <!-- Sidebar
+                ============================================= -->
+                <div class="sidebar col-lg-3">
+
+                    <address>
+                        <strong>Headquarters:</strong><br>
+                        795 Folsom Ave, Suite 600<br>
+                        San Francisco, CA 94107<br>
+                    </address>
+                    <abbr title="Phone Number"><strong>Phone:</strong></abbr> (1) 8547 632521<br>
+                    <abbr title="Fax"><strong>Fax:</strong></abbr> (1) 11 4752 1433<br>
+                    <abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com
+
+                    <div class="widget border-0 pt-0">
+
+                        <div class="fslider customjs testimonial twitter-scroll twitter-feed" data-username="envato" data-count="3" data-animation="slide" data-arrows="false">
+                            <i class="i-plain i-small color icon-twitter mb-0" style="margin-right: 15px;"></i>
+                            <div class="flexslider" style="width: auto;">
+                                <div class="slider-wrap">
+                                    <div class="slide"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="widget border-0 pt-0">
+
+                        <a href="#" class="social-icon si-small si-dark si-facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+
+                        <a href="#" class="social-icon si-small si-dark si-instagram">
+                            <i class="icon-instagram"></i>
+                            <i class="icon-instagram"></i>
+                        </a>
+
+                        <a href="#" class="social-icon si-small si-dark si-twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i>
+                        </a>
+
+                        <a href="#" class="social-icon si-small si-dark si-linkedin">
+                            <i class="icon-linkedin"></i>
+                            <i class="icon-linkedin"></i>
+                        </a>
+
+                        
+                    </div>
+
+                </div><!-- .sidebar end -->
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

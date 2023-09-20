@@ -1,0 +1,477 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %} Shareapp {% endblock %}
+
+{% block body %}
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Overview</a></li>
+                        <li class="breadcrumb-item active">Seller</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Sellers</h4>
+                
+            </div>
+        </div>
+    </div>
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <!-- <a href="javascript:void(0);" class="btn btn-danger mb-2 " data-bs-toggle="modal"
+                                data-bs-target="#bs-example-modal-lg"><i class="mdi mdi-plus-circle me-2"></i> Add
+                                Sellers</a> -->
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                <button type="button" class="btn btn-success mb-2 me-1"><i
+                                        class="mdi mdi-cog"></i></button>
+                                <!-- <button type="button" class="btn btn-light mb-2 me-1">Import</button>
+                                <button type="button" class="btn btn-light mb-2">Export</button> -->
+                            </div>
+                        </div><!-- end col-->
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-centered table-borderless table-hover w-100 dt-responsive nowrap"
+                            id="basic-datatable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 20px;">
+                                        ID
+                                    </th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Company Name</th>
+                                    <th>Status</th>
+                                    <th>City</th>
+                                    <th style="width: 75px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in seller %}
+                                <tr>
+                                    <td>
+                                        {{i.sellerId}}
+                                    </td>
+                                    <td class="table-user">
+                                        <a href="javascript:void(0);" class="text-body fw-semibold">{{i.first_name}} {{i.last_name}}</a>
+                                    </td>
+                                    <td>
+                                        {{i.mobile_no}}
+                                    </td>
+                                    <td>
+                                        <span class="fw-semibold">{{i.email}}</span>
+                                    </td>
+                                    <td>
+                                        {{i.company_name}}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">{{i.status}}</span>
+                                        
+                                    </td>
+                                    <td>
+                                        {{i.city}}
+                                    </td>
+
+                                    <td>
+                                        <a href="javascript:void(0);" class="action-icon" data-bs-toggle="modal"
+                                        data-bs-target="#full-width-modal{{i.sellerId}}"> <i
+                                                class="mdi mdi-eye"></i></a>
+                                        <!-- <a href="/dashboard/vendor-details/{{i.sellerId}}" class="action-icon"> <i
+                                                class="mdi mdi-eye"></i></a> -->
+                                        <a  class="action-icon" onclick="deleteCategory({{i.sellerId}})" > <i
+                                                class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+</div> <!-- container -->
+
+<!-- Modal Operations here  -->
+<!-- Full width modal -->
+<div id="bs-example-modal-lg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="fullWidthModalLabel">Add New Vendor</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/dashboard/add-new-vendor/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <h4><i class="mdi mdi-account-group"></i> Besic Details</h4>
+                        <hr>
+                        <div class="col-xl-12 row">
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">First Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="firstName" class="form-control"
+                                    placeholder="first name" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Last Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="lastName" class="form-control"
+                                    placeholder="last name" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Phone : <span
+                                        class="text-danger">*</span></label>
+                                <input type="tel" id="projectname" name="contact" class="form-control"
+                                    placeholder="" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Email Address : <span
+                                        class="text-danger">*</span></label>
+                                <input type="email" id="projectname" name="email" class="form-control"
+                                    placeholder="product name" required>
+                            </div>
+
+                            <h4><i class="mdi mdi-google-my-business"></i> Store Details</h4>
+                            <hr>
+                            <div class="mb-3 col-12">
+                                <label for="projectname" class="form-label">Store Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="storeName" class="form-control"
+                                    placeholder="store name" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Address Line 1 : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="address_line_1" class="form-control"
+                                    placeholder="address line 1" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Address Line 2 : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="address_line_2" class="form-control"
+                                    placeholder="address line 2 " required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">City : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="city" class="form-control"
+                                    placeholder="city" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Landmark : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="landmark" class="form-control"
+                                    placeholder="landmark" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Pincode : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="pincode" class="form-control"
+                                    placeholder="eg. 415164" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">State : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="state" value="Maharashtra" class="form-control"
+                                    placeholder="state" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Country : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="country" class="form-control"
+                                    placeholder="Country" value="India" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">GSTIN : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="GSTIN" class="form-control"
+                                    placeholder="GST number" required>
+                            </div>
+
+
+                            
+                            <div class="mb-3">
+                                <label for="project-overview" class="form-label">Overview: <span
+                                        class="text-danger">*</span></label>
+                                <textarea class="form-control" id="project-overview" rows="5"
+                                    placeholder="Enter brief info about business or store" name="description"
+                                    required></textarea>
+                            </div>
+
+                            
+
+                        </div> <!-- end col-->
+                        <h4 class="" style="padding-top: 40px;"><i class="mdi mdi-camera-burst"></i> Images</h4>
+                        <hr>
+                        <div class="col-xl-12 row">
+
+                            <div class="mb-3 mt-3 mt-xl-0 col-6">
+                                <label for="projectname" class="mb-0">Logo</label>
+                                <p class="text-muted font-14">Recommended thumbnail size 800x400 (px).</p>
+
+                                <div class="dropzone" id="myAwesomeDropzone1" data-plugin="dropzone"
+                                    data-previews-container="#file-previews"
+                                    data-upload-preview-template="#uploadPreviewTemplate1">
+                                    <div class="fallback">
+                                        <input name="logo" type="file" />
+                                    </div>
+
+                                    <div class="dz-message needsclick">
+                                        <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                        <h4>Drop files here or click to upload.</h4>
+                                    </div>
+                                </div>
+
+                                <!-- Preview -->
+                                <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                <!-- file preview template -->
+                                <div class="d-none" id="uploadPreviewTemplate1">
+                                    <div class="card mt-1 mb-0 shadow-none border">
+                                        <div class="p-2">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light"
+                                                        alt="">
+                                                </div>
+                                                <div class="col ps-0">
+                                                    <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                        data-dz-name></a>
+                                                    <p class="mb-0" data-dz-size></p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Button -->
+                                                    <a href="#" class="btn btn-link btn-lg text-muted" data-dz-remove>
+                                                        <i class="dripicons-cross"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end file preview template -->
+                            </div>
+
+                            <div class="mb-3 mt-3 mt-xl-0 col-6">
+                                <label for="projectname" class="mb-0">Store Banner</label>
+                                <p class="text-muted font-14">Recommended thumbnail size 800x400 (px).</p>
+
+                                <div class="dropzone" id="myAwesomeDropzone2" data-plugin="dropzone"
+                                    data-previews-container="#file-previews"
+                                    data-upload-preview-template="#uploadPreviewTemplate2">
+                                    <div class="fallback">
+                                        <input name="banner" type="file" />
+                                    </div>
+
+                                    <div class="dz-message needsclick">
+                                        <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                        <h4>Drop files here or click to upload.</h4>
+                                    </div>
+                                </div>
+
+                                <!-- Preview -->
+                                <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                <!-- file preview template -->
+                                <div class="d-none" id="uploadPreviewTemplate2">
+                                    <div class="card mt-1 mb-0 shadow-none border">
+                                        <div class="p-2">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto">
+                                                    <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light"
+                                                        alt="">
+                                                </div>
+                                                <div class="col ps-0">
+                                                    <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                        data-dz-name></a>
+                                                    <p class="mb-0" data-dz-size></p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- Button -->
+                                                    <a href="#" class="btn btn-link btn-lg text-muted" data-dz-remove>
+                                                        <i class="dripicons-cross"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end file preview template -->
+                            </div>
+
+                            <!-- Date View -->
+                            <div class="mb-3 position-relative" id="datepicker2">
+                                <button class="btn btn-success " type="submit">Save & Add</button>
+                                <button class="btn btn-warning mx-2" type="reset">Reset</button>
+                                <a href="/dashboard/products" class="btn btn-danger" type="button">Cancel</a>
+                            </div>
+                        </div> <!-- end col-->
+                    </div>
+                    <!-- end row -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+{% for i in seller %}
+<div id="full-width-modal{{i.sellerId}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-full-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="fullWidthModalLabel">Update Seller Details</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body container">
+                
+                <form action="/dashboard/seller-Update/{{i.sellerId}}/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <h4><i class="mdi mdi-account-group"></i> Besic Details</h4>
+                        <hr>
+                        <div class="col-xl-12 row">
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">First Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="first_name" value="{{i.first_name}}" class="form-control"
+                                    placeholder="first name" required>
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Last Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="last_name" value="{{i.last_name}}" class="form-control"
+                                    placeholder="last name" required>
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Phone : <span
+                                        class="text-danger">*</span></label>
+                                <input type="tel" id="projectname" name="mobile_no" value="{{i.mobile_no}}" class="form-control" placeholder=""
+                                    required>
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="projectname" class="form-label">Email Address : <span
+                                        class="text-danger">*</span></label>
+                                <input type="email" id="projectname" name="email" value="{{i.email}}" class="form-control"
+                                    placeholder="product name" required >
+                            </div>
+
+                            <h4><i class="mdi mdi-google-my-business"></i> Store Details</h4>
+                            <hr>
+                            <div class="mb-3 col-12">
+                                <label for="projectname" class="form-label">Store Name : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="company_name" value="{{i.company_name}}" class="form-control"
+                                    placeholder="store name" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Address Line 1 : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="address_line_1" value="{{i.address_line_1}}" class="form-control"
+                                    placeholder="address line 1" required>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="projectname" class="form-label">Address Line 2 : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="address_line_2" value="{{i.address_line_2}}" class="form-control"
+                                    placeholder="address line 2 " required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">City : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="city" value="{{i.city}}" class="form-control" placeholder="city"
+                                    required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Landmark : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="landmark" value="{{i.landmark}}" class="form-control"
+                                    placeholder="landmark" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Pincode : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="pincode" value="{{i.pincode}}" class="form-control"
+                                    placeholder="eg. 415164" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">State : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="state" value="{{i.state}}"
+                                    class="form-control" placeholder="state" required>
+                            </div>
+                            <div class="mb-3 col-4">
+                                <label for="projectname" class="form-label">Country : <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="projectname" name="country" class="form-control"
+                                    placeholder="Country" value="India" required>
+                            </div>
+                          
+
+                            <div class="mb-3 col-12 mt-3">
+                                <button class="btn btn-success" type="submit">Save & Update</button> &nbsp;
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+
+                        </div> <!-- end col-->
+                        
+                    </div>
+                    <!-- end row -->
+                </form>
+                
+            </div>
+            
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+{% endfor %}
+
+</div> <!-- content -->
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    function deleteCategory(id) {
+        del = confirm("Do you really want to delete Seller ?")
+        if (del == true) {
+            location.replace("/dashboard/seller-Delete/" + id)
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %}Subscriber | Krushiworld  {% endblock %}
+{% block body %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+                        
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Others</a></li>
+                        <li class="breadcrumb-item active">Subscriber</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Subscriber</h4>
+            </div>
+        </div>
+    </div>     
+    <!-- end page title --> 
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong> 
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-xl-8">
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="text-xl-end mt-xl-0 mt-2">
+                                <a href="/dashboard/customers" type="button" class="btn btn-primary mb-2 me-2"><i class="mdi mdi-autorenew me-1"></i> </a>
+                                <!-- <button type="button" class="btn btn-light mb-2">Export</button> -->
+                            </div>
+                        </div><!-- end col-->
+                    </div>
+
+                    <div class="table-responsive">
+                        <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>  Email</th>
+                                    <th>  Date</th>
+                                </tr>
+                            </thead>
+                        
+                        
+                            <tbody>
+                                {% for i in mails reversed %}
+                                <tr>
+                                    <td><a href="mailto:{{i.email}}" class="text-body fw-bold"><i class="mdi mdi-email"></i> {{i.email}}</a> </td>
+                                    <td><i class="mdi mdi-calendar"></i> {{i.date}} </td>
+                                    
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row --> 
+    
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    function selectStatus() {
+      var status = document.getElementById("status-select").value;
+      location.replace('/dashboard/orders/'+status)
+    }
+
+    function deleteOrder(id){
+        del = confirm("Do you really want to delete order ?")
+        if(del == true)
+        {
+            location.replace("/dashboard/delete-order/"+id)
+        }
+    }
+    </script>
+{% endblock %}

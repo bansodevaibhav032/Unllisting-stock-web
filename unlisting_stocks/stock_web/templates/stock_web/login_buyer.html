@@ -1,0 +1,109 @@
+{% extends 'stock_web/layout.html' %}
+{% block title %} ShareApp | Login{% endblock %}
+{% block content %}
+
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+
+            <div class="accordion accordion-lg mx-auto mb-0 clearfix" style="max-width: 550px;">
+
+                <div class="accordion-header">
+                    <div class="accordion-icon">
+                        <i class="accordion-closed icon-lock3"></i>
+                        <i class="accordion-open icon-unlock"></i>
+                    </div>
+                    <div class="accordion-title">
+                        Login to your Account
+                    </div>
+                </div>
+                <div class="accordion-content clearfix">
+                    <form id="login-form" name="login-form" class="row mb-0" action="/buyer-login/" method="post">
+                        {% csrf_token %}
+                        <div class="col-12 form-group">
+                            <label for="login-form-username">Username * :</label>
+                            <input type="text" id="login-form-username" name="username" class="form-control" required/>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="login-form-password">Password * :</label>
+                            <input type="password" id="login-form-password" name="password" class="form-control" />
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <button class="button button-3d button-black m-0" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+                            
+                        </div>
+                    </form>
+                </div>
+
+                <div class="accordion-header">
+                    <div class="accordion-icon">
+                        <i class="accordion-closed icon-user4"></i>
+                        <i class="accordion-open icon-ok-sign"></i>
+                    </div>
+                    <div class="accordion-title">
+                        New Signup? Register for an Account
+                    </div>
+                </div>
+                <div class="accordion-content clearfix">
+                    <form id="register-form" name="register-form" class="row mb-0" action="/buyer-registration/" method="post">
+                        {% csrf_token %}
+                        <div class="col-12 form-group">
+                            <label for="register-form-name">Name * :</label>
+                            <input type="text"  name="name"   class="form-control" placeholder="Full Name" required/>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="register-form-email">Email Address * :</label>
+                            <input type="email"  name="email" placeholder="E-mail address" required value="" class="form-control" />
+                        </div>
+
+                        
+
+                        <div class="col-12 form-group">
+                            <label for="register-form-phone">Phone * :</label>
+                            <input type="tel"  name="phone" placeholder="Mobile Number" class="form-control" />
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="register-form-username">Location *:</label>
+                            <input type="text"  name="address1" placeholder="Location / City" required class="form-control" />
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="template-contactform-service">I am an</label>
+                            <select id="template-contactform-service" name="designation" class="sm-form-control">
+                                <option value="">-- Select One --</option>
+                                <option >Investore</option>
+                                <option >Partner</option>
+                                <option >Shareholder</option>
+                                <option >Institution</option>
+                                <option >Employee</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="register-form-password">Password:</label>
+                            <input type="password"  name="password" value="" class="form-control" required/>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="register-form-repassword">Re-enter Password:</label>
+                            <input type="password"  name="password2" value="" class="form-control" required />
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <button class="button button-3d button-black m-0" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section><!-- #content end -->
+
+
+{% endblock %}

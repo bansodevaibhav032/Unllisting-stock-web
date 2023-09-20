@@ -1,0 +1,244 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+<section id="content">
+	<div class="content-wrap">
+		<div class="container clearfix">
+
+			<div class="single-product">
+				<div class="product">
+					<div class="row gutter-40">
+
+						<div class="col-md-6">
+
+							<!-- Product Single - Gallery
+									============================================= -->
+
+							<div class="product-image">
+								<div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
+									<div class="flexslider">
+										<div class="slider-wrap" data-lightbox="gallery">
+											<img src="{{company.logo.url}}" alt="Pink Printed Dress">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6 product-desc">
+
+							<div class="d-flex align-items-center justify-content-between">
+
+
+								<div class="product-price">{{company.sellerId.company_name}}
+								</div>
+
+								<div class="line"></div>
+
+
+
+								<!-- Product Single - Short Description
+									============================================= -->
+								<p>Company Overview :- {{company.overview}}</p>
+
+								<p>Industry Overview :- {{industryOverview.industry_overview}}</p>
+
+								<h4 class="mt-0">Award: {{award.award}} <a class="text-muted"></a> </h4>
+
+
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+										<span class="text-muted">Share Price:</span><span
+											class="text-dark fw-semibold"><span
+												class="WebRupee">Rs.</span>{{company.price}}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+										<span class="text-muted">Lot Size:</span><span
+											class="text-dark fw-semibold">{{company.lot_size}}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+										<span class="text-muted">Total Available Share:</span><span
+											class="text-dark fw-semibold">{{company.total_available_share}}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+										<span class="text-muted">Face Value:</span><span
+											class="text-dark fw-semibold"><span
+												class="WebRupee">Rs.</span>{{company.face_value}}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+										<span class="text-muted"> Comapny Status:</span><span
+											class="text-dark fw-semibold">{{company.status}}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+										<span class="text-muted">Industry:</span><span
+											class="text-dark fw-semibold">{{company.industry}}</span>
+									</li>
+								</ul>
+
+							</div>
+
+							<div class="w-100"></div>
+
+							<div class="col-12 mt-5">
+
+								<div class="tabs clearfix mb-0" id="tab-1">
+
+									<ul class="tab-nav clearfix">
+										<li><a href="#tabs-1"><i class="icon-align-justify2"></i><span
+													class="d-none d-md-inline-block"> Description</span></a></li>
+										<li><a href="#tabs-2"><i class="icon-info-sign"></i><span
+													class="d-none d-md-inline-block">Past Performance</span></a></li>
+										<li><a href="#tabs-3"><i class="icon-star3"></i><span
+													class="d-none d-md-inline-block">Deals Request</span></a></li>
+									</ul>
+
+									<div class="tab-container">
+
+										<div class="tab-content clearfix" id="tabs-1">
+											<div class="row g-2">
+												<div class="form-group col-md-4">
+													<h6 class="font-14">Company About:</h6>
+													<p>{{about.about_Company}}It is a long established fact that a reader
+														will be distracted by
+														the readable content of a page when looking at its layout. The
+														point of using Lorem
+														Ipsum is that it has a more-or-less normal distribution of
+														letters, as opposed to using
+														'Content here, content here', making it look like readable
+														English. </p>
+												</div>
+												<div class="form-group col-md-4">
+													<h6 class="font-14">Company Services:</h6>
+													<p>{{services.service}}It is a long established fact that a reader will
+														be distracted by the
+														readable content of a page when looking at its layout. The point
+														of using Lorem Ipsum is
+														that it has a more-or-less normal distribution of letters, as
+														opposed to using 'Content
+														here, content here', making it look like readable English. </p>
+												</div>
+												<div class="form-group col-md-4">
+													<h6 class="font-14">Company Evalution:</h6>
+													<p>{{evalution.evalution}}It is a long established fact that a reader will
+														be distracted by the
+														readable content of a page when looking at its layout. The point
+														of using Lorem Ipsum is
+														that it has a more-or-less normal distribution of letters, as
+														opposed to using 'Content
+														here, content here', making it look like readable English. </p>
+												</div>
+											</div>
+											<div class="row g-2">
+												<div class="form-group col-md-6">
+													<h6 class="font-14">Rationale:</h6>
+													<p>{{rationle.rationle}}It is a long established fact that a reader will
+														be distracted by the
+														readable content of a page when looking at its layout. The point
+														of using Lorem Ipsum is
+														that it has a more-or-less normal distribution of letters, as
+														opposed to using 'Content
+														here, content here', making it look like readable English. </p>
+												</div>
+												<div class="form-group col-md-6">
+													<h6 class="font-14">Company Products:</h6>
+													<p>{{products.products}}It is a long established fact that a reader will
+														be distracted by the
+														readable content of a page when looking at its layout. The point
+														of using Lorem Ipsum is
+														that it has a more-or-less normal distribution of letters, as
+														opposed to using 'Content
+														here, content here', making it look like readable English. </p>
+												</div>
+											</div>
+											<div class="tab-content clearfix" id="tabs-2">
+
+												<table class="table table-striped table-bordered">
+\													<tbody>
+														<tr>
+															<td>Company Past Performance</td>
+															<td><span
+																	class="WebRupee">Rs.</span>{{pastPerformance.pre_IPO_selling_price}}
+															</td>
+														</tr>
+														<tr>
+															<td>Pre IPO Selling Price</td>
+															<td><span class="WebRupee">Rs.</span>{{pastPerformance.ipo_band_price}}
+															</td>
+														</tr>
+														<tr>
+															<td>IPO Band Price</td>
+															<td><span class="WebRupee">Rs.</span>{{pastPerformance.listing_price}}
+															</td>
+														</tr>
+													</tbody>
+												</table>
+
+											</div>
+											<div class="tab-content clearfix" id="tabs-3">
+												<table class="table table-striped table-bordered">
+													<tbody>
+														<tr>
+															<td>Date Time</td>
+															<td><span class="WebRupee">Rs.</span>{{dealsRequest.datetime}}</td>
+														</tr>
+														<tr>
+															<td>Share Qauntity</td>
+															<td><span class="WebRupee">Rs.</span>{{dealsRequest.share_qauntity}}
+															</td>
+														</tr>
+														<tr>
+															<td>Share Price</td>
+															<td><span class="WebRupee">Rs.</span>{{dealsRequest.share_price}}
+															</td>
+														</tr>
+														<tr>
+															<td>Deals Request Status</td>
+															<td><span class="WebRupee">Rs.</span>{{dealsRequest.status}}</td>
+														</tr>
+													</tbody>
+												</table>
+
+
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<h4 class="header-title mb-3">Seller Information</h4>
+
+							<ul class="list-unstyled mb-0">
+								<li>
+									<p class="mb-2"><span class="fw-bold me-2">Seller Name:</span>
+										{{seller.first_name}}{{seller.last_name}}</p>
+									<p class="mb-2"><span class="fw-bold me-2">Mobile Number:</span>{{seller.mobile_no}}
+									</p>
+									<p class="mb-2"><span class="fw-bold me-2"> Email Id:</span> {{seller.email}}</p>
+									<p class="mb-0"><span class="fw-bold me-2">Country:</span> {{seller.country}}</p>
+									<p class="mb-2"><span class="fw-bold me-2">State:</span> {{seller.state}}</p>
+									<p class="mb-2"><span class="fw-bold me-2"> City:</span> {{seller.city}}</p>
+									<p class="mb-2"><span class="fw-bold me-2"> Address Line
+											1:</span>{{seller.address_line_1}}</p>
+									<p class="mb-0"><span class="fw-bold me-2">Address Line 2:</span>
+										{{seller.address_line_2}}</p>
+									<p class="mb-2"><span class="fw-bold me-2"> Landmark:</span>{{seller.landmark}}</p>
+									<p class="mb-2"><span class="fw-bold me-2"> Pincode:</span>{{seller.pincode}}</p>
+									<p class="mb-2"><span class="fw-bold me-2"> Identity:</span>{{seller.identity}}</p>
+									<p class="mb-2"><span class="fw-bold me-2"> Status:</span> {{seller.status}}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+</section><!-- #content end -->
+{% endblock %}

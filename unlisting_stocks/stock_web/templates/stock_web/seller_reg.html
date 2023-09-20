@@ -1,0 +1,116 @@
+{% extends 'stock_web/layout.html' %}
+{% block title %} ShareApp | Seller {% endblock %}
+{% block content %}
+
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+
+            <div class="row">
+
+                
+                <div class="col-md-12">
+
+
+                    <h3>Please share the expected pricing of your early stage investment </h3>
+
+                    <p>Sell Pre IPO & Unlisted Stocks - we assure you to Liquidite your investment with industry best pricing. </p>
+
+                    <form  name="register-form" class="row" action="/register-seller/" method="post">
+                        {% csrf_token %}
+
+                        <div class="col-6 form-group">
+                            <label for="register-form-name">Name * :</label>
+                            <input type="text" id="register-form-name" name="name" placeholder="Full Name" required
+                                class="form-control" />
+                        </div>
+
+                        <div class="col-6 form-group">
+                            <label for="register-form-email">Email Address * :</label>
+                            <input type="text" id="register-form-email" name="email" placeholder="Email address" required
+                                class="form-control" />
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        
+
+                        <div class="col-6 form-group">
+                            <label for="register-form-phone">Phone * :</label>
+                            <input type="tel" id="register-form-phone" name="phone" class="form-control" placeholder="Mobile Number" required/>
+                        </div>
+
+                        <div class="col-6 form-group">
+                            <label for="register-form-username">City * :</label>
+                            <input type="text"  name="city" required placeholder="City"
+                                class="form-control" />
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-6 form-group">
+                            <label for="register-form-password">Address line 1 * :</label>
+                            <input type="text"  name="address_line_1"  placeholder="Address Line 1" required
+                                class="form-control" />
+                        </div>
+
+                        <div class="col-6 form-group">
+                            <label for="register-form-repassword">Address Line 2:</label>
+                            <input type="text" name="address_line_2" placeholder="Address Line 2"
+                                value="" class="form-control" />
+                        </div>
+                       
+                        <div class="col-4 form-group">
+                            <label for="register-form-repassword">Landmark :</label>
+                            <input type="text" name="landmark" placeholder="Landmark"
+                                value="" class="form-control" />
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="register-form-repassword">Pincode * :</label>
+                            <input type="text" name="pincode" placeholder="Pincode" required
+                                value="" class="form-control" />
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="register-form-repassword">State *:</label>
+                            <input type="text" name="state" placeholder="State" required
+                                value="Maharashtra" class="form-control" />
+                        </div>
+                        <hr>
+                        <h4>Compnay Details </h4>
+                        <div class="col-12 form-group">
+                            <label for="register-form-repassword">Company Name  *:</label>
+                            <input type="text" name="companyName" placeholder="Company Name" required
+                                 class="form-control" />
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="register-form-repassword">Available Stock *:</label>
+                            <input type="number" name="stockQnt" placeholder="Available Stocks" required
+                             class="form-control" />
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="register-form-repassword">Lot Size *:</label>
+                            <input type="number" name="lotSize" placeholder="Lot Size" required
+                                value="Maharashtra" class="form-control" />
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="register-form-repassword">Share Price *:</label>
+                            <input type="number" name="sharePrice" placeholder="Share Price"
+                                 class="form-control" />
+                        </div>
+                        <div class="w-100"></div>
+
+                        <div class="col-12 form-group">
+                            <button class="btn btn-dark m-0" id="register-form-submit" name="register-form-submit"
+                                value="register">Register Now</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section><!-- #content end -->
+{% endblock %}

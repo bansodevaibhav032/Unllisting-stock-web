@@ -1,0 +1,190 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %}Flash Deals | Krushiworld {% endblock %}
+{% block body %}
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Marketing</a></li>
+                        <li class="breadcrumb-item active">Flash Deals</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Flash Deals & Offers</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row mb-2">
+        <div class="col-sm-4">
+            <a href="apps-projects-add.html" class="btn btn-danger btn-rounded mb-3" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="mdi mdi-plus"></i> Create
+                Deals</a>
+        </div>
+        <div class="col-sm-8">
+            <div class="text-sm-end">
+                <div class="btn-group mb-3">
+                    <a href="/dashboard/flash-deals" type="button" class="btn btn-primary"><i
+                            class="mdi mdi-autorenew"></i> </a>
+                </div>
+               </div>
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        {% for i in deals %}
+        <div class="col-lg-6 col-xxl-3">
+            <!-- project card -->
+            <div class="card d-block">
+                <img class="card-img-top" src="/media/{{i.banner}}"
+                    alt="project image cap">
+                <div class="card-img-overlay">
+                    {% if i.status == 'Active' %}
+                    <div class="badge bg-success text-light p-1">{{i.status}}</div>
+                    {% else %}
+                    <div class="badge bg-danger text-light p-1">{{i.status}}</div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <div class="dropdown card-widgets">
+                         <!-- Status Switch-->
+                         {% if i.status == 'Active' %}
+                         <input type="checkbox" id="switch{{i.dealId}}" checked data-switch="success" onclick="changeStatus({{i.dealId}})" value="Active"/>
+                         <label for="switch{{i.dealId}}" data-on-label="On" data-off-label="Off"></label>
+                         {% else %}
+                         <input type="checkbox" id="switch{{i.dealId}}" data-switch="success" onclick="changeStatus({{i.dealId}})" value="Inactive"/>
+                         <label for="switch{{i.dealId}}" data-on-label="On" data-off-label="Off"></label>
+                         {% endif %}
+                    </div>
+                    <!-- project title-->
+                    <h4 class="mt-0">
+                        <a href="#" class="text-title">{{i.title}}</a>
+                    </h4>
+                    
+                </div> <!-- end card-body-->
+
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+        {% endfor %}
+
+    </div>
+    <!-- end row-->
+
+
+
+    <div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Create New Deals</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <form action="/dashboard/create-deals/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <h4><i class="mdi mdi-star-check"></i> Offers/ Deals Details</h4>
+                        <hr>
+                        <div class="col-xl-12 row">
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Deal Title :
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="title" id="" placeholder="Deals Title" required>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <div class="mt-3 ">
+                                    <label for="projectname" class="mb-0">Deal Banner <span class="text-danger">*</span> </label>
+                                    <p class="text-muted font-14"></p>
+
+                                    <div class="dropzone" id="myAwesomeDropzone1" data-plugin="dropzone"
+                                        data-previews-container="#file-previews"
+                                        data-upload-preview-template="#uploadPreviewTemplate1">
+                                        <div class="fallback">
+                                            <input name="banner" type="file" required/>
+                                        </div>
+
+                                        <div class="dz-message needsclick">
+                                            <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                            <h4>Drop files here or click to upload.</h4>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                    <!-- file preview template -->
+                                    <div class="d-none" id="uploadPreviewTemplate1">
+                                        <div class="card mt-1 mb-0 shadow-none border">
+                                            <div class="p-2">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <img data-dz-thumbnail src="#"
+                                                            class="avatar-sm rounded bg-light" alt="">
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                            data-dz-name></a>
+                                                        <p class="mb-0" data-dz-size></p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="#" class="btn btn-link btn-lg text-muted"
+                                                            data-dz-remove>
+                                                            <i class="dripicons-cross"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end file preview template -->
+                                </div>
+                            </div>
+                            <div class="mb-3 position-relative" id="datepicker2">
+                                <button class="btn btn-success " type="submit">Save & Add</button>
+                            </div>
+
+                        </div> <!-- end col-->
+                        <!-- end col-->
+                    </div>
+                    <!-- end row -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    
+    function changeStatus(id) {
+        result = document.getElementById('switch'+id).value;
+        alert("Do you really want to change ?")
+        location.replace('/dashboard/change-deal-status/'+result+'/'+id )
+    }
+</script>
+{% endblock %}

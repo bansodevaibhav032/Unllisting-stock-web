@@ -1,0 +1,170 @@
+{% extends 'stock_web/base1.html' %}
+
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-{{ message }} alert-dismissible fade show" role="alert">
+    <strong>Message: </strong> {{ message }}
+    <button type="button" class="class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  {% endfor %}
+<form class="top-search-form" action="http://themes.semicolonweb.com/html/canvas/search.html" method="get">
+    <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter.." autocomplete="off">
+</form>
+
+</div>
+</div>
+</div>
+<div class="header-wrap-clone"></div>
+</header><!-- #header end -->
+
+<!-- Page Title
+============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1> Buyer Registration</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+
+
+<!-- Page Sub Menu
+============================================= -->
+<div id="page-menu">
+    <div id="page-menu-wrap">
+        <div class="container">
+            <div class="page-menu-row">
+
+                <div class="text-primary">CREATE A BUYER ACCOUNT<span></span></div>
+
+
+
+                <div id="page-menu-trigger"><i class="icon-reorder"></i></div>
+
+            </div>
+        </div>
+    </div>
+</div><!-- #page-menu end -->
+
+<!-- Content
+============================================= -->
+<section id="content">
+    <div class="content-wrap">
+        <div class="container">
+
+            <div class="row gutter-40 col-mb-80">
+                <!-- Postcontent
+============================================= -->
+                <div class="postcontent col-lg-12">
+
+                    <h3>Please Fill The Form</h3>
+
+                    <div class="form-widget">
+
+                        <div class="form-result"></div>
+
+                        <form class="mb-12" action="/register_buyer/" method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-name">First Name <small>*</small></label>
+                                    <input type="text" id="template-contactform-name" name="first_name"
+                                        value="" class="sm-form-control required" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-name">Last Name <small>*</small></label>
+                                    <input type="text" id="template-contactform-name" name="last_name"
+                                        value="" class="sm-form-control required" />
+                                </div>
+
+                                
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-email">Email <small>*</small></label>
+                                    <input type="email" id="email" name="email" value=""
+                                        class="required email sm-form-control" />
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-phone">Mobile No.:</label>
+                                    <input type="text" id="" name="mobile_no" value="" class="sm-form-control" />
+                                </div>
+
+                                
+                                <div class="col-md-12 form-group">
+                                    <label for="template-contactform-subject">Address Line 1 </label>
+                                    <input type="text" id="address_line_1" name="address_line_1" value=""
+                                        class="required sm-form-control" />
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="template-contactform-subject">Address Line 2</label>
+                                    <input type="text" id="address_line_2" name="address_line_2" value=""
+                                        class="required sm-form-control" />
+                                </div>
+                                <div class="w-100"></div>
+
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-subject">Country </label>
+                                    <input type="text" id="country" name="country" value="India"
+                                        class="required sm-form-control" />
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-subject">State </label>
+                                    <input type="text" id="state" name="state" value=""
+                                        class="required sm-form-control" />
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="template-contactform-subject">City</label>
+                                    <input type="text" id="city" name="city" value=""
+                                        class="required sm-form-control" />
+                                </div>
+
+                                <div class="w-100"></div>
+
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-subject">Landmark </label>
+                                    <input type="text" id="landmark" name="landmark" value=""
+                                        class="required sm-form-control" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-subject">Pincode </label>
+                                    <input type="text" id="pincode" name="pincode" value=""
+                                        class="required sm-form-control" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-email">Password <small>*</small></label>
+                                    <input type="password" id="password" name="password1" value=""
+                                        class="required password sm-form-control" />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="template-contactform-email">Confirm Password <small>*</small></label>
+                                    <input type="password" id="password" name="password2" value=""
+                                        class="required password sm-form-control" />
+                                </div>
+
+                                
+                                <div class="col-12 form-group">
+                                    <button class="button button-3d m-0" type="submit" id="template-contactform-submit"
+                                        name="template-contactform-submit" value="submit">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div><!-- .postcontent end -->
+
+                <!-- Sidebar
+
+</div>
+
+</div>
+</div>
+</section><!-- #content end -->
+
+                {% endblock %}

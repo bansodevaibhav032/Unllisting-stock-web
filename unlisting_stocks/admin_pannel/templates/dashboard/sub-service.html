@@ -1,0 +1,344 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %}Services | Electro Museum {% endblock %}
+{% block body %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">E-Commerce</a></li>
+                        <li class="breadcrumb-item active">Services</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Sub Service Management</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <h4 class="page-title mx-2 my-2">Sub Services</h4>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-8">
+                            <a href="javascript:void(0);" class="btn btn-danger mb-2" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i
+                                    class="mdi mdi-plus-circle me-2"></i> Add New</a>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table id="selection-datatable" class="table dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Parent Service </th>
+                                    <th>Price</th>
+                                    <th>Service Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                {% for i in service reversed %}
+                                <tr>
+                                    <td> <img src="/media/{{i.icon}}" alt="contact-img" title="contact-img"
+                                            class="rounded me-3" style="width: 70px;" /> <small>{{i.name}}</small>
+                                            
+                                    </td>
+                                    <td>{{i.service.name}}</td>
+                                    <td><del>Rs. {{i.price}}</del> / Rs. {{i.offerPrice}}</td>
+                                    <td>{{i.serviceType}} </td>
+                                    
+                                    <td>
+                                        <a class="action-icon" onclick="deleteCategory({{i.id}})"> <i
+                                            class="mdi mdi-delete"></i> </a>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div>
+
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+
+    <!-- Right Side Modal for updating form  -->
+    <div>
+        <!-- <button class="btn btn-primary" type="button" >Toggle right offcanvas</button> -->
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Add New service</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+
+                <form action="/dashboard/add-sub-service/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <h4><i class="mdi mdi-adobe-acrobat"></i> Service</h4>
+                        <hr>
+                        <div class="col-xl-12 row">
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Parent Service :
+                                    <span class="text-danger">*</span></label>
+                                <select class="form-select" id="example-select" name="service">
+                                    {% for i in parentService %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Service Type :
+                                    <span class="text-danger">*</span></label>
+                                <select class="form-select" id="example-select" name="serviceType">
+                                    <option value="Service">Service</option>
+                                    <option value="Repair">Repair</option>
+                                    <option value="Installation-Uninstallation">Installation & Uninstallation</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Service Name :
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" name="name" id="" class="form-control" placeholder="eg. Split ac reguler service" required>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Service Charge :
+                                    <span class="text-danger">*</span></label>
+                                <input type="number" name="price" id="" placeholder="eg. 150" class="form-control" required>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Offer Charge :
+                                    <span class="text-danger">*</span></label>
+                                    <input type="number" name="offerPrice" id="" placeholder="eg. 100" class="form-control" required>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Instruction 1 :
+                                    <span class="text-danger">*</span></label>
+                                <textarea name="instruction1" class="form-control" id="" cols="20" rows="4"
+                                    required placeholder="eg. Offer is valid on same booking and same place"></textarea>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="example-select" class="form-label">Instruction 2 :
+                                    <span class="text-danger">*</span></label>
+                                <textarea name="instruction2" class="form-control" id="" cols="20" rows="4"
+                                    required placeholder="eg. Price include visit and diagnosis"></textarea>
+                            </div>
+                            <div class="mb-3 col-12">
+                                <div class="mt-3 ">
+                                    <label for="projectname" class="mb-0">Servive Icon <span
+                                            class="text-danger">*</span></label>
+                                    <p class="text-muted font-14">Recommended thumbnail size 250x120 (px).</p>
+
+                                    <div class="dropzone" id="myAwesomeDropzone1" data-plugin="dropzone"
+                                        data-previews-container="#file-previews"
+                                        data-upload-preview-template="#uploadPreviewTemplate1">
+                                        <div class="fallback">
+                                            <input name="icon" type="file" required />
+                                        </div>
+
+                                        <div class="dz-message needsclick">
+                                            <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                            <h4>Drop files here or click to upload.</h4>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                    <!-- file preview template -->
+                                    <div class="d-none" id="uploadPreviewTemplate1">
+                                        <div class="card mt-1 mb-0 shadow-none border">
+                                            <div class="p-2">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <img data-dz-thumbnail src="#"
+                                                            class="avatar-sm rounded bg-light" alt="">
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                            data-dz-name></a>
+                                                        <p class="mb-0" data-dz-size></p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="#" class="btn btn-link btn-lg text-muted"
+                                                            data-dz-remove>
+                                                            <i class="dripicons-cross"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end file preview template -->
+                                </div>
+                            </div>
+
+                            <div class="mb-3 col-12">
+                                <div class="mt-3 ">
+                                    <label for="projectname" class="mb-0">Service Banner <span
+                                            class="text-danger">*</span></label>
+                                    <p class="text-muted font-14">Recommended thumbnail size 250x120 (px).</p>
+
+                                    <div class="dropzone" id="myAwesomeDropzone1" data-plugin="dropzone"
+                                        data-previews-container="#file-previews"
+                                        data-upload-preview-template="#uploadPreviewTemplate1">
+                                        <div class="fallback">
+                                            <input name="banner" type="file" required />
+                                        </div>
+
+                                        <div class="dz-message needsclick">
+                                            <i class="h3 text-muted dripicons-cloud-upload"></i>
+                                            <h4>Drop files here or click to upload.</h4>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview -->
+                                    <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                                    <!-- file preview template -->
+                                    <div class="d-none" id="uploadPreviewTemplate1">
+                                        <div class="card mt-1 mb-0 shadow-none border">
+                                            <div class="p-2">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <img data-dz-thumbnail src="#"
+                                                            class="avatar-sm rounded bg-light" alt="">
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="javascript:void(0);" class="text-muted fw-bold"
+                                                            data-dz-name></a>
+                                                        <p class="mb-0" data-dz-size></p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="#" class="btn btn-link btn-lg text-muted"
+                                                            data-dz-remove>
+                                                            <i class="dripicons-cross"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end file preview template -->
+                                </div>
+                            </div>
+
+
+
+                            <div class="mb-3 position-relative" id="datepicker2">
+                                <button class="btn btn-success " type="submit">Save & Add</button>
+                            </div>
+
+                        </div> <!-- end col-->
+                        <!-- end col-->
+                    </div>
+                    <!-- end row -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SubCategory Modal  -->
+    <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+        aria-controls="offcanvasExample">
+        Button with data-bs-target
+    </button> -->
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Create New Sub Category</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form action="/dashboard/add-sub-category/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <h4><i class="mdi mdi-adobe-acrobat"></i>Sub Category</h4>
+                    <hr>
+                    <div class="col-xl-12 row">
+                        <div class="mb-3 col-12">
+                            <label for="example-select" class="form-label">Category Name :
+                                <span class="text-danger">*</span></label>
+                            <input type="text" name="cName" id="" class="form-control" required>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="example-select" class="form-label">Select Main Category : <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select" id="example-select" name="mainCategory">
+                                {% for i in categoryList %}
+                                <option value="{{i.id}}">{{i.cName}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3 position-relative" id="datepicker2">
+                            <button class="btn btn-success " type="submit">Save & Add</button>
+                        </div>
+
+                    </div> <!-- end col-->
+                    <!-- end col-->
+                </div>
+                <!-- end row -->
+            </form>
+        </div>
+    </div>
+
+
+
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    function deleteCategory(id) {
+        del = confirm("Do you really want to delete Sub Service ?")
+        if (del == true) {
+            location.replace("/dashboard/delete-service/" + id)
+        }
+    }
+
+    function statusActive(id, status) {
+        if (confirm("Do you realy want to make changes ?")) {
+            location.replace('/dashboard/active-parent-service/' + id + '/' + status)
+        }
+
+    }
+
+</script>
+{% endblock %}

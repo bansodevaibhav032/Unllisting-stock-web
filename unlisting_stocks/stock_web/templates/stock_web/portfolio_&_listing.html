@@ -1,0 +1,38 @@
+{% extends 'stock_web/layout.html' %}
+{% block title %} ShareApp | portfolio {% endblock %}
+{% block content %}
+
+
+
+<!-- Content
+============================================= -->
+<section id="content">
+	<div class=" clearfix mt-5 mb-3 text-center">
+        <div class="heading-block center">
+            <h2>Companies currently on our platform</h2>
+            <span></span>
+        </div>
+        <div class="" style="display: flex; flex-wrap: wrap; justify-content: center;">
+
+            {% for i in company %}
+            <div class="oc-item " style="margin: 15px;">
+                <div class="card" style="width: 15rem; height: 20rem; padding-top: 10px;">
+                    <img src="/media/{{i.logo}}" style="width: 150px; height: 150px; margin: auto;" class="card-img-top"
+                        alt="Compnay List">
+
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{i.company_name }}</h5>
+                        <p>{{i.industry }}</p>
+                    </div>
+                    <div style="background-color: chocolate; padding: 10px;">
+                        <a href="/company-details/{{i.companyId}}" style=" color: white;">Lear More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+    </div>
+</section><!-- #content end -->
+{% endblock %}

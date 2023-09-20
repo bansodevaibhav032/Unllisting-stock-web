@@ -1,0 +1,320 @@
+{% extends 'dashboard/layout.html' %}
+{% load static %}
+{% block title %}Banners | Krushiworld {% endblock %}
+{% block body %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Marketing</a></li>
+                        <li class="breadcrumb-item active">Banners</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Banners</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        <i style="list-style: none;" class=" me-2"></i> <strong>Message - </strong>
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-xl-8">
+
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="text-xl-end mt-xl-0 mt-2">
+                                <a href="/dashboard/banners" type="button" class="btn btn-primary mb-2 me-2"><i
+                                        class="mdi mdi-autorenew me-1"></i> </a>
+                                <!-- <button type="button" class="btn btn-light mb-2">Export</button> -->
+                            </div>
+                        </div><!-- end col-->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="mb-4">Website's Images/ Banners/ Sliders</h4>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-7">
+                                        {% for i in slider1 %}
+                                        <img src="/media/{{i.image}}" class="card-img" alt="...">
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-5">
+
+                                        <div class="card-body">
+                                            {% for i in slider1 %}
+                                            <form action="/dashboard/update-image/slider1/" method="POST"
+                                                enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <h5 class="card-title">Slider One <small>(580 x 520 )Px</small></h5>
+                                                <input type="text" class="form-control mb-2" name="line1"
+                                                    value="{{i.line1}}" id="" required>
+                                                <input type="text" class="form-control mb-2" name="line2"
+                                                    value="{{i.line2}}" id="" required>
+                                                <textarea name="Para" class="form-control" id="" cols="30"
+                                                    rows="3">{{i.Para}}</textarea>
+                                                <input type="file" class="form-control mt-2" name="image" id=""
+                                                    required>
+                                                <select class="form-select mt-2" id="status-select" name="deal">
+                                                    <option value="{{i.deal.dealId}}"> {{i.deal.title}}</option>
+                                                    {% for d in deals %}
+                                                    <option value="{{d.dealId}}"> {{d.title}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <button type="submit" class="btn btn-primary mt-2 btn-sm">Save</button>
+                                            </form>
+                                            {% endfor %}
+                                        </div> <!-- end card-body-->
+
+                                    </div> <!-- end col -->
+                                </div> <!-- end row-->
+                            </div> <!-- end card-->
+                        </div> <!-- end col-->
+
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="card-body">
+                                            {% for i in slider2 %}
+                                            <form action="/dashboard/update-image/slider2/" method="POST"
+                                                enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <h5 class="card-title">Slider One <small>(580 x 520 )Px</small></h5>
+                                                <input type="text" class="form-control mb-2" name="line1"
+                                                    value="{{i.line1}}" id="" required>
+                                                <input type="text" class="form-control mb-2" name="line2"
+                                                    value="{{i.line2}}" id="" required>
+                                                <textarea name="Para" class="form-control" id="" cols="30"
+                                                    rows="3">{{i.Para}}</textarea>
+                                                <input type="file" class="form-control mt-2" name="image" id=""
+                                                    required>
+                                                <select class="form-select mt-2" id="status-select" name="deal">
+                                                    <option value="{{i.deal.dealId}}"> {{i.deal.title}}</option>
+                                                    {% for d in deals %}
+                                                    <option value="{{d.dealId}}"> {{d.title}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <button type="submit" class="btn btn-primary mt-2 btn-sm">Save</button>
+                                            </form>
+                                            {% endfor %}
+                                        </div> <!-- end card-body-->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-7">
+                                        {% for i in slider2 %}
+                                        <img src="/media/{{i.image}}" class="card-img" alt="...">
+                                        {% endfor %}
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end card-->
+                        </div> <!-- end col-->
+
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Special Offer Banner <small>(1220 x 310 )Px</small>
+                                            </h5>
+                                            <div class="card-body">
+                                                {% for i in offerBanner %}
+                                                <form action="/dashboard/update-image/offerBanner/" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input type="file" class="form-control mt-2" name="image" id=""
+                                                        required>
+                                                    <select class="form-select mt-2" id="status-select" name="deal">
+                                                        <option value="{{i.deal.dealId}}"> {{i.deal.title}}</option>
+                                                        {% for d in deals %}
+                                                        <option value="{{d.dealId}}"> {{d.title}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mt-2 btn-sm">Save</button>
+                                                </form>
+                                                {% endfor %}
+                                            </div> <!-- end card-body-->
+                                        </div> <!-- end card-body -->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-8">
+                                        {% for i in offerBanner %}
+                                        <img src="/media/{{i.image}}"
+                                            class="card-img" alt="...">
+                                        {% endfor %}
+                                    </div> <!-- end col -->
+                                </div> <!-- end row-->
+                            </div> <!-- end card -->
+                        </div> <!-- end col-->
+
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-4">
+                                        {% for i in discountOffer %}
+                                        <img src="/media/{{i.image}}"
+                                            class="card-img" alt="...">
+                                        {% endfor %}
+                                    </div> <!-- end col -->
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Timer Discount Offer Banner <small>(550 x 550
+                                                    )Px</small></h5>
+                                            <div class="card-body">
+                                                {% for i in discountOffer %}
+                                            <form action="/dashboard/update-image/discountOffer/" method="POST"
+                                                enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <h5 class="card-title">Slider One <small>(580 x 520 )Px</small></h5>
+                                                <input type="text" class="form-control mb-2" name="line1"
+                                                    value="{{i.line1}}" id="" required>
+                                                <input type="text" class="form-control mb-2" name="line2"
+                                                    value="{{i.line2}}" id="" required>
+                                                <textarea name="Para" class="form-control" id="" cols="30"
+                                                    rows="3">{{i.Para}}</textarea>
+                                                <input type="file" class="form-control mt-2" name="image" id=""
+                                                    required>
+                                                    <input type="text" class="form-control mt-2" name="deadline"
+                                                    value="{{i.deadline}}" id="" required>
+                                                    <small> Date formate must be like 2021/09/28 (yyyy/mm/dd) </small>
+                                                    <input type="number" class="form-control mt-2" name="discount"
+                                                    value="{{i.discount}}" id="" required>
+                                                    <small> Current Offer Discount ({{i.discount}} %) </small>
+                                                <select class="form-select mt-2" id="status-select" name="deal">
+                                                    <option value="{{i.deal.dealId}}"> {{i.deal.title}}</option>
+                                                    {% for d in deals %}
+                                                    <option value="{{d.dealId}}"> {{d.title}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <button type="submit" class="btn btn-primary mt-2 btn-sm">Save</button>
+                                            </form>
+                                            {% endfor %}
+                                            </div> <!-- end card-body-->
+                                        </div> <!-- end card-body -->
+                                    </div> <!-- end col -->
+
+                                </div> <!-- end row-->
+                            </div> <!-- end card -->
+                        </div> <!-- end col-->
+
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Offer One <small>(590 x 300 )Px</small></h5>
+                                            {% for i in offer1 %}
+                                                <form action="/dashboard/update-image/offer1/" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input type="file" class="form-control mt-2" name="image" id=""
+                                                        required>
+                                                    <select class="form-select mt-2" id="status-select" name="deal">
+                                                        <option value="{{i.deal.dealId}}"> {{i.deal.title}}</option>
+                                                        {% for d in deals %}
+                                                        <option value="{{d.dealId}}"> {{d.title}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mt-2 btn-sm">Save</button>
+                                                </form>
+                                                {% endfor %}
+                                        </div> <!-- end card-body -->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-4">
+                                        {% for i in offer1 %}
+                                        <img src="/media/{{i.image}}"
+                                            class="card-img" alt="...">
+                                        {% endfor %}
+                                    </div> <!-- end col -->
+                                </div> <!-- end row-->
+                            </div> <!-- end card -->
+                        </div> <!-- end col-->
+
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="row g-0 align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Offer Two <small>(590 x 300 )Px</small></h5>
+                                            {% for i in offer2 %}
+                                                <form action="/dashboard/update-image/offer2/" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input type="file" class="form-control mt-2" name="image" id=""
+                                                        required>
+                                                    <select class="form-select mt-2" id="status-select" name="deal">
+                                                        <option value="{{i.deal.dealId}}"> {{i.deal.title}}</option>
+                                                        {% for d in deals %}
+                                                        <option value="{{d.dealId}}"> {{d.title}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mt-2 btn-sm">Save</button>
+                                                </form>
+                                                {% endfor %}
+                                        </div> <!-- end card-body -->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-4">{% for i in offer2 %}
+                                        <img src="/media/{{i.image}}"
+                                            class="card-img" alt="...">
+                                        {% endfor %}
+                                    </div> <!-- end col -->
+                                </div> <!-- end row-->
+                            </div> <!-- end card -->
+                        </div> <!-- end col-->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+</div> <!-- container -->
+
+</div> <!-- content -->
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    function selectStatus() {
+        var status = document.getElementById("status-select").value;
+        location.replace('/dashboard/orders/' + status)
+    }
+
+    function deleteOrder(id) {
+        del = confirm("Do you really want to delete order ?")
+        if (del == true) {
+            location.replace("/dashboard/delete-order/" + id)
+        }
+    }
+</script>
+{% endblock %}

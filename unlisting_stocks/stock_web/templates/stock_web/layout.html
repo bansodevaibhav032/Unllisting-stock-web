@@ -1,0 +1,420 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+
+    <!-- Stylesheets
+	============================================= -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&amp;display=swap"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/css/bootstrap.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/style.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/css/swiper.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/css/dark.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/css/font-icons.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/css/animate.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'stock_web/css/magnific-popup.css' %}" type="text/css" />
+
+    <link rel="stylesheet" href="{% static 'stock_web/css/custom.css' %}" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Document Title
+	============================================= -->
+    <title>{% block title %} {% endblock %}</title>
+
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+	============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        <!-- Header
+		============================================= -->
+        <header id="header" class="full-header">
+            <div id="header-wrap">
+                <div class="container">
+                    <div class="header-row">
+
+                        <!-- Logo
+						============================================= -->
+                        <div id="logo">
+                            <a href="/" class="standard-logo" data-dark-logo="images/logo-dark.png"><img
+                                    src="{% static 'stock_web/images/hrLogo.png' %}" alt="Canvas Logo"></a>
+                            <a href="/" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img
+                                    src="{% static 'stock_web/images/hrLogo.png' %}" style="width: 270px;"
+                                    alt="Canvas Logo"></a>
+                        </div><!-- #logo end -->
+
+                        <div class="header-misc">
+
+                            <!-- Top Search
+							============================================= -->
+                            <div id="top-search" class="header-misc-icon">
+                                <a href="/login"><i class="icon-user"></i><i class="icon-line-cross"></i></a>
+                            </div><!-- #top-search end -->
+
+
+                        </div>
+
+                        <div id="primary-menu-trigger">
+                            <svg class="svg-trigger" viewBox="0 0 100 100">
+                                <path
+                                    d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20">
+                                </path>
+                                <path d="m 30,50 h 40"></path>
+                                <path
+                                    d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20">
+                                </path>
+                            </svg>
+                        </div>
+
+                        <!-- Primary Navigation
+						============================================= -->
+                        <nav class="primary-menu">
+
+                            <ul class="menu-container">
+                                <li class="menu-item">
+                                    <a class="menu-link" href="/">
+                                        <div>Home</div>
+                                    </a>
+
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" href="{% url 'about' %}">
+                                        <div>ABOUT US</div>
+                                    </a>
+
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" href="#">
+                                        <div>BUY & SELL</div>
+                                    </a>
+                                    <ul class="sub-menu-container">
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="{% url 'portfolio' %}">
+                                                <div>INDIAN PRE IPO & UNLISTED STOCKS</div>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="{% url 'registerSeller' %}">
+                                                <div>SELLER</div>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="/login">
+                                                <div>BUYER</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="menu-item">
+                                    <a class="menu-link" href="#">
+                                        <div>KNOWLEDGE CENTER</div>
+                                    </a>
+                                    <ul class="sub-menu-container">
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="{% url 'portfolio' %}">
+                                                <div>RESERACH REPORTS</div>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="{% url 'blog_web' %}">
+                                                <div>BLOG</div>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="{% url 'faqs' %}">
+                                                <div>FAQs</div>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" href="{% url 'contact_us' %}">
+                                        <div>Contact Us</div>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </nav><!-- #primary-menu end -->
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="header-wrap-clone"></div>
+        </header><!-- #header end -->
+
+
+
+        {% if messages %}
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-dismissible alert-{{ message.tags }}" {% endif %}>
+            <i class="icon-{{ message.tags }}-sign"></i><strong>{{ message.tags }}!</strong> {{ message }}
+            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-hidden="true"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+
+
+
+        {% block content %}
+
+
+
+        {% endblock %}
+        <!-- Footer
+		============================================= -->
+        <footer id="footer" class="dark">
+            <div class="container">
+
+                <!-- Footer Widgets
+				============================================= -->
+                <div class="footer-widgets-wrap">
+
+                    <div class="row col-mb-50">
+                        <div class="col-lg-8">
+
+                            <div class="row col-mb-50">
+                                <div class="col-md-4">
+
+                                    <div class="widget clearfix">
+
+                                        <img src="{% static 'stock_web/images/hrLogo.png' %}" alt="Image"
+                                            class="footer-logo">
+
+                                        <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp;
+                                            <strong>Flexible</strong> Design Standards.
+                                        </p>
+
+                                        <div
+                                            style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
+                                            <address>
+                                                <strong>Headquarters:</strong><br>
+                                                795 Folsom Ave, Suite 600<br>
+                                                San Francisco, CA 94107<br>
+                                            </address>
+                                            <abbr title="Phone Number"><strong>Phone:</strong></abbr> (1) 8547
+                                            632521<br>
+                                            <abbr title="Fax"><strong>Fax:</strong></abbr> (1) 11 4752 1433<br>
+                                            <abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4 mx-4">
+
+                                    <div class="widget widget_links clearfix">
+
+                                        <h4>Blogroll</h4>
+
+                                        <ul>
+                                            <li><a href="{% url 'home' %}">Home</a>
+                                            </li>
+                                            <li><a href="{% url 'about' %}">About</a>
+                                            </li>
+
+                                            <li><a href="{% url 'registerSeller' %}">FAQ's</a></li>
+
+                                            <li><a href="{% url 'blog' %}"> Blog</a></li>
+
+                                            <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="widget clearfix widget_links">
+                                        <h4>Unlisted Shares</h4>
+
+                                        <ul>
+                                            <li><a href="{% url 'portfolio' %}">Indian Pre IPO & unlimited Stocks</a>
+                                            </li>
+                                            <li><a href="{% url 'registerBuyer' %}">Buyer</a></li>
+
+                                            <li><a href="{% url 'registerSeller' %}">Seller</a></li>
+
+                                            <li><a href="{% url 'blog' %}"> Research Reports</a></li>
+                                        </ul>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4">
+
+                            <div class="row col-mb-50">
+                                <div class="col-md-4 col-lg-12">
+                                    <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 bottommargin-sm">
+                                                <div class="counter counter-small"><span data-from="50" data-to="78"
+                                                        data-refresh-interval="80" data-speed="3000"
+                                                        data-comma="true"></span></div>
+                                                <h5 class="mb-0">Companies</h5>
+                                            </div>
+
+                                            <div class="col-lg-6 bottommargin-sm">
+                                                <div class="counter counter-small"><span data-from="100" data-to="1846"
+                                                        data-refresh-interval="50" data-speed="2000"
+                                                        data-comma="true"></span></div>
+                                                <h5 class="mb-0">Buyers</h5>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-lg-12">
+                                    <div class="widget subscribe-widget clearfix">
+                                        <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing
+                                            Offers &amp; Inside Scoops:</h5>
+                                        <div class="widget-subscribe-form-result"></div>
+                                        <form id="widget-subscribe-form" action="#" method="post" class="mb-0">
+                                            <div class="input-group mx-auto">
+                                                <div class="input-group-text"><i class="icon-email2"></i></div>
+                                                <input type="email" id="widget-subscribe-form-email"
+                                                    name="widget-subscribe-form-email"
+                                                    class="form-control required email" placeholder="Enter your Email">
+                                                <button class="btn btn-success" type="submit">Subscribe</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-lg-12">
+                                    <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                                        <div class="row">
+                                            <div class="col-6 col-md-12 col-lg-6 clearfix bottommargin-sm">
+                                                <a href="#" class="social-icon si-dark si-colored si-facebook mb-0"
+                                                    style="margin-right: 10px;">
+                                                    <i class="icon-facebook"></i>
+                                                    <i class="icon-facebook"></i>
+                                                </a>
+                                                <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like
+                                                            us</strong><br>on Facebook</small></a>
+                                            </div>
+                                            <div class="col-6 col-md-12 col-lg-6 clearfix">
+                                                <a href="#" class="social-icon si-dark si-colored si-rss mb-0"
+                                                    style="margin-right: 10px;">
+                                                    <i class="icon-twitter"></i>
+                                                    <i class="icon-twitter"></i>
+                                                </a>
+                                                <a href="#"><small
+                                                        style="display: block; margin-top: 3px;"><strong>Follow</strong><br>to
+                                                        Twitter</small></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div><!-- .footer-widgets-wrap end -->
+
+            </div>
+
+            <!-- Copyrights
+			============================================= -->
+            <div id="copyrights">
+                <div class="container">
+
+                    <div class="row col-mb-30">
+
+                        <div class="col-md-6 text-center text-md-start">
+                            Copyrights &copy; 2021 All Rights Reserved by Shareapp.com<br>
+                            <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="d-flex justify-content-center justify-content-md-end">
+                                <a href="#" class="social-icon si-small si-borderless si-facebook">
+                                    <i class="icon-facebook"></i>
+                                    <i class="icon-facebook"></i>
+                                </a>
+
+                                <a href="#" class="social-icon si-small si-borderless si-twitter">
+                                    <i class="icon-twitter"></i>
+                                    <i class="icon-twitter"></i>
+                                </a>
+
+                                <a href="#" class="social-icon si-small si-borderless si-instagram">
+                                    <i class="icon-instagram"></i>
+                                    <i class="icon-instagram"></i>
+                                </a>
+
+                                <a href="#" class="social-icon si-small si-borderless si-linkedin">
+                                    <i class="icon-linkedin"></i>
+                                    <i class="icon-linkedin"></i>
+                                </a>
+
+                                <a href="#" class="social-icon si-small si-borderless si-youtube">
+                                    <i class="icon-youtube"></i>
+                                    <i class="icon-youtube"></i>
+                                </a>
+
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                            <i class="icon-envelope2"></i> info@shareapp.com <span class="middot">&middot;</span> <i
+                                class="icon-headphones"></i> +91 8308666614 <span class="middot">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div><!-- #copyrights end -->
+        </footer><!-- #footer end -->
+
+    </div><!-- #wrapper end -->
+
+    <!-- Go To Top
+	============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- JavaScripts
+	============================================= -->
+    <script src="{% static 'stock_web/js/jquery.js' %}"></script>
+    <script src="{% static 'stock_web/js/plugins.min.js' %}"></script>
+
+    <!-- Footer Scripts
+	============================================= -->
+    <script src="{% static 'stock_web/js/functions.js' %}"></script>
+
+</body>
+
+<!-- Mirrored from themes.semicolonweb.com/html/canvas/header-light.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Nov 2021 11:36:42 GMT -->
+
+</html>
